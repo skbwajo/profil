@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Peserta Didik — UPTD SPNF SKB Sengkang</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #1a4a2e;
+      --green-mid: #2d7a4f;
+      --green-light: #f0f9f4;
+      --green-border: #86efac;
+      --gold: #f0a500;
+      --bg: #f4f5f7;
+      --card-bg: #ffffff;
+      --border: rgba(0,0,0,0.1);
+      --border-strong: rgba(0,0,0,0.2);
+      --text: #1a1a1a;
+      --text-muted: #5f6b7a;
+      --text-hint: #9ba8b5;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111318;
+        --card-bg: #1c1f26;
+        --border: rgba(255,255,255,0.09);
+        --border-strong: rgba(255,255,255,0.18);
+        --text: #e8ecf0;
+        --text-muted: #8a97a6;
+        --text-hint: #5a6470;
+        --green-light: #0d1f14;
+        --green-border: #1a5c30;
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--green-dark);
+      color: #fff;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .logo-circle {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; color: #fff;
+      text-align: center; line-height: 1.3; flex-shrink: 0;
+    }
+    .header-text h1 { font-size: 13px; font-weight: 400; opacity: 0.8; margin-bottom: 2px; }
+    .header-text h2 { font-size: 20px; font-weight: 700; }
+    .header-text p  { font-size: 12px; opacity: 0.65; margin-top: 3px; }
+    .header-stripe  { height: 4px; background: linear-gradient(90deg, var(--gold), #e07b00, var(--gold)); }
+
+    /* ── NAV ── */
+    .nav { background: var(--card-bg); border-bottom: 0.5px solid var(--border); }
+    .nav-inner { display: flex; max-width: 1100px; margin: 0 auto; padding: 0 20px; overflow-x: auto; }
+    .nav-tab {
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 7px;
+      transition: color 0.15s;
+    }
+    .nav-tab:hover { color: var(--green-dark); }
+    .nav-tab.active { color: var(--green-dark); border-bottom-color: var(--green-dark); font-weight: 500; }
+
+    /* ── LAYOUT ── */
+    .content { padding: 28px 20px; max-width: 920px; margin: 0 auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card-bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 11px; font-weight: 600;
+      color: var(--green-dark);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex; align-items: center; gap: 7px;
+    }
+
+    /* ── FORM ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    label .req { color: #c0392b; }
+    input[type="text"], input[type="date"], input[type="email"],
+    input[type="tel"], input[type="number"], select, textarea {
+      padding: 8px 11px;
+      font-size: 13px;
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      color: var(--text);
+      width: 100%;
+      font-family: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--green-dark);
+      box-shadow: 0 0 0 3px rgba(26,74,46,0.1);
+    }
+    textarea { resize: vertical; min-height: 78px; }
+    input[type="checkbox"] { width: auto; margin-top: 2px; accent-color: var(--green-dark); cursor: pointer; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 9px 22px;
+      font-size: 13px; font-weight: 500;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 0.5px solid transparent;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: inherit;
+    }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-primary:hover { background: #143d25; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-secondary { background: var(--card-bg); color: var(--text); border-color: var(--border-strong); }
+    .btn-secondary:hover { background: var(--bg); }
+    .btn-danger { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-success { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+    .btn-success:hover { background: #a7f3d0; }
+    .btn-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+    .stat-card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+    .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+    .stat-value { font-size: 30px; font-weight: 600; color: var(--green-dark); line-height: 1; }
+    .stat-sub   { font-size: 11px; color: var(--text-hint); margin-top: 4px; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 580px; }
+    th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 0.5px solid var(--border); white-space: nowrap; }
+    td { padding: 10px 12px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+
+    /* ── BADGES ── */
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 500; }
+    .badge-green  { background: #d1fae5; color: #065f46; }
+    .badge-yellow { background: #fef3c7; color: #92400e; }
+    .badge-red    { background: #fee2e2; color: #991b1b; }
+    .badge-blue   { background: #dbeafe; color: #1e40af; }
+    .badge-gray   { background: var(--bg); color: var(--text-muted); }
+
+    /* ── STEP INDICATOR ── */
+    .step-indicator { display: flex; align-items: center; margin-bottom: 24px; }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600; flex-shrink: 0;
+    }
+    .step.done   .step-num { background: var(--green-dark); color: #fff; }
+    .step.active .step-num { background: var(--green-dark); color: #fff; }
+    .step.pending .step-num { background: var(--bg); color: var(--text-muted); border: 0.5px solid var(--border-strong); }
+    .step-label { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+    .step.active .step-label { color: var(--green-dark); font-weight: 500; }
+    .step-line { flex: 1; height: 0.5px; background: var(--border); margin: 0 8px; }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      background: var(--green-light);
+      border: 0.5px solid var(--green-border);
+      border-radius: var(--radius);
+      padding: 11px 14px;
+      font-size: 12px; color: #065f46;
+      margin-bottom: 14px;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+
+    /* ── PROGRAM CARDS ── */
+    .program-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .program-card {
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--card-bg);
+    }
+    .program-card:hover { border-color: var(--green-dark); background: var(--green-light); }
+    .program-card.selected { border: 2px solid var(--green-dark); background: var(--green-light); }
+    .prog-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .prog-desc { font-size: 11px; color: var(--text-muted); }
+
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .section-header h3 { font-size: 15px; font-weight: 500; }
+
+    /* ── SEARCH ── */
+    .filter-bar { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .search-wrap { position: relative; flex: 1; min-width: 180px; }
+    .search-wrap i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; }
+    .search-wrap input { padding-left: 34px; }
+
+    /* ── MODAL ── */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 200;
+      align-items: center; justify-content: center;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal-box {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      max-width: 400px; width: 92%;
+      text-align: center;
+    }
+    .modal-icon { font-size: 52px; color: var(--green-dark); margin-bottom: 14px; }
+    .modal-box h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .modal-box p  { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6; }
+    .no-reg {
+      font-size: 22px; font-weight: 700; color: var(--green-dark);
+      background: #d1fae5; padding: 10px 20px;
+      border-radius: var(--radius); letter-spacing: 0.06em;
+      margin: 0 auto 20px; display: inline-block;
+    }
+
+    /* ── PROGRAM INFO ── */
+    .prog-info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .prog-info-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px;
+    }
+    .prog-info-card .pn { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .prog-info-card .pd { font-size: 11px; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .header-inner { padding: 14px 16px; }
+      .content { padding: 16px 12px; }
+      .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .program-cards { grid-template-columns: 1fr 1fr; }
+      .prog-info-grid { grid-template-columns: 1fr 1fr; }
+      .step-label { display: none; }
+    }
+    @media (max-width: 400px) {
+      .program-cards { grid-template-columns: 1fr; }
+      .prog-info-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      .nav, .btn, .filter-bar, .modal-backdrop { display: none !important; }
+      .card { border: 1px solid #ccc; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-circle">
+      <img src="Logo SKB.png" alt="Logo UPTD SKB Wajo" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+    </div>
+    <div class="header-text">
+      <h1>Pemerintah Kabupaten Wajo — Dinas Pendidikan dan Kebudayaan</h1>
+      <h2>UPTD SPNF SKB Sengkang</h2>
+      <p>Jl. Lembu No. 69 Sengkang, Kabupaten Wajo, Sulawesi Selatan</p>
+    </div>
+  </div>
+  <div class="header-stripe"></div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-inner">
+    <button class="nav-tab active" id="tab-dashboard" onclick="showPage('dashboard')">
+      <i class="ti ti-layout-dashboard"></i> Beranda
+    </button>
+    <button class="nav-tab" id="tab-daftar" onclick="showPage('daftar')">
+      <i class="ti ti-user-plus"></i> Pendaftaran Baru
+    </button>
+    <button class="nav-tab" id="tab-SIG ATS" onclick="showPage('SIG ATS')">
+      <i class="ti ti-map-pin"></i> SIG ATS
+    </button>
+    <button class="nav-tab" id="tab-verifikasi" onclick="showPage('verifikasi')">
+      <i class="ti ti-clipboard-check"></i> Verifikasi
+    </button>
+    <button class="nav-tab" id="tab-cetak" onclick="showPage('cetak')">
+      <i class="ti ti-printer"></i> Cetak / Laporan
+    </button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ══ BERANDA ══ -->
+  <div class="page active" id="page-dashboard">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Pendaftar</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">T.A. 2025/2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Diterima</div>
+        <div class="stat-value" id="stat-diterima" style="color:#065f46;">0</div>
+        <div class="stat-sub">Terverifikasi</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Menunggu</div>
+        <div class="stat-value" id="stat-pending" style="color:#92400e;">0</div>
+        <div class="stat-sub">Diproses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ditolak</div>
+        <div class="stat-value" id="stat-ditolak" style="color:#991b1b;">0</div>
+        <div class="stat-sub">Tidak lolos</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-info-circle"></i> Poster Pendaftaran</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px;">
+        <div>
+          <img src="Spmb.jpg" alt="Deskripsi Gambar" width="800" height="1200">
+          <p style="font-weight:600; margin-bottom:8px;">Periode Pendaftaran 2024/2025</p>
+          <p style="color:var(--text-muted);">Gelombang I &nbsp;: 1 Juli — 31 Juli 2025</p>
+          <p style="color:var(--text-muted);">Gelombang II : 1 Agustus — 31 Agustus 2025</p>
+          <br>
+          <p style="font-weight:600; margin-bottom:8px;">Kontak SKB Sengkang</p>
+          <p style="color:var(--text-muted);"><i class="ti ti-phone" style="font-size:14px;vertical-align:-2px;"></i> (0485) 21xxx</p>
+          <p style="color:var(--text-muted);"><i class="ti ti-map-pin" style="font-size:14px;vertical-align:-2px;"></i> Jl. Ahmad Yani, Sengkang, Wajo</p>
+          <p style="color:var(--text-muted);"><i class="ti ti-clock" style="font-size:14px;vertical-align:-2px;"></i> Senin–Jumat, 08.00–15.00 WITA</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-school"></i> Program Pendidikan Tersedia</div>
+      <div class="prog-info-grid">
+        <div class="prog-info-card">
+          <div class="pn">Paket A (Setara SD)</div>
+          <div class="pd">Usia 15+ yang belum tamat SD/MI. Durasi 3–6 semester.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn">Paket B (Setara SMP)</div>
+          <div class="pd">Lulusan SD/MI atau sederajat. Durasi 3–6 semester.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn">Paket C (Setara SMA)</div>
+          <div class="pd">Lulusan SMP/MTs atau sederajat. Durasi 3–6 semester.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn">Kursus Menjahit</div>
+          <div class="pd">Keterampilan tata busana & konveksi. Durasi 3–6 bulan.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn">Kursus Komputer</div>
+          <div class="pd">Operasional komputer & internet dasar. Durasi 2–3 bulan.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn">Pendidikan Keaksaraan</div>
+          <div class="pd">Baca, tulis, hitung (Calistung) bagi masyarakat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PENDAFTARAN BARU ══ -->
+  <div class="page" id="page-daftar">
+        <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Pendaftar</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">T.A. 2025/2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Diterima</div>
+        <div class="stat-value" id="stat-diterima" style="color:#065f46;">0</div>
+        <div class="stat-sub">Terverifikasi</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Menunggu</div>
+        <div class="stat-value" id="stat-pending" style="color:#92400e;">0</div>
+        <div class="stat-sub">Diproses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ditolak</div>
+        <div class="stat-value" id="stat-ditolak" style="color:#991b1b;">0</div>
+        <div class="stat-sub">Tidak lolos</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-info-circle"></i> Poster Pendaftaran</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px;">
+        <div>
+          <img src="Spmb.jpg" alt="Deskripsi Gambar" width="800" height="1200">
+          <p style="font-weight:600; margin-bottom:8px;">Periode Pendaftaran 2024/2025</p>
+          <p style="color:var(--text-muted);">Gelombang I &nbsp;: 1 Juli — 31 Juli 2025</p>
+          <p style="color:var(--text-muted);">Gelombang II : 1 Agustus — 31 Agustus 2025</p>
+          <br>
+          <p style="font-weight:600; margin-bottom:8px;">Kontak SKB Sengkang</p>
+          <p style="color:var(--text-muted);"><i class="ti ti-phone" style="font-size:14px;vertical-align:-2px;"></i> (0485) 21xxx</p>
+          <p style="color:var(--text-muted);"><i class="ti ti-map-pin" style="font-size:14px;vertical-align:-2px;"></i> Jl. Ahmad Yani, Sengkang, Wajo</p>
+          <p style="color:var(--text-muted);"><i class="ti ti-clock" style="font-size:14px;vertical-align:-2px;"></i> Senin–Jumat, 08.00–15.00 WITA</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ SIG ATS ══ -->
+  <div class="page" id="page-SIG ATS">
+        <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+
+  <style>
+    /* ── SIG ATS PAGE WRAPPER ── */
+    #page-SIG\ ATS {
+      display: none;
+      flex-direction: column;
+      height: calc(100vh - 130px);
+      overflow: hidden;
+      padding: 0 !important;
+      /* Break out of .content max-width */
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      width: 100vw;
+      max-width: 100vw;
+      transition: height 0.3s ease;
+    }
+    #page-SIG\ ATS.active { display: flex; }
+
+    /* Fullscreen mode */
+    #page-SIG\ ATS.fullscreen {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      margin: 0 !important;
+      z-index: 9999;
+    }
+    #page-SIG\ ATS.fullscreen #sig-toolbar { flex-shrink: 0; }
+
+    /* Tombol fullscreen di toolbar */
+    #btn-fullscreen {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+      title: 'Layar Penuh';
+    }
+    #btn-fullscreen:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── SIG ATS TOOLBAR ── */
+    #sig-toolbar {
+      background: linear-gradient(135deg, #0d2e52 0%, #1a4a7a 100%);
+      color: #fff;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    #sig-toolbar .brand { display: flex; align-items: center; gap: 10px; }
+    #sig-toolbar .logo {
+      width: 36px; height: 36px; background: rgba(255,255,255,0.15);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    #sig-toolbar h2 { font-size: 14px; font-weight: 600; line-height: 1.3; }
+    #sig-toolbar h2 span { font-size: 11px; font-weight: 400; opacity: 0.75; display: block; }
+    #sig-toolbar .actions { display: flex; gap: 8px; }
+
+    /* ── SIG BUTTONS ── */
+    .sig-btn {
+      padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer;
+      font-size: 12px; font-weight: 500; display: inline-flex; align-items: center;
+      gap: 6px; transition: all 0.15s; text-decoration: none;
+    }
+    .sig-btn-success { background: #27ae60; color: #fff; }
+    .sig-btn-success:hover { background: #1e8449; }
+    .sig-btn-outline {
+      background: rgba(255,255,255,0.12); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .sig-btn-outline:hover { background: rgba(255,255,255,0.22); }
+
+    /* ── MAIN LAYOUT ── */
+    #sig-main { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: 280px; flex-shrink: 0; background: #fff;
+      border-right: 1px solid #dde3ea;
+      display: flex; flex-direction: column;
+      transition: width 0.25s ease, opacity 0.2s ease;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    #sidebar.collapsed {
+      width: 0;
+      opacity: 0;
+      border-right: none;
+      overflow: hidden;
+    }
+
+    /* Toggle button — menempel di tepi kiri map-container */
+    #sidebar-toggle {
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      z-index: 500;
+      width: 20px; height: 52px;
+      background: #1a4a7a;
+      border: none; border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 12px;
+      box-shadow: 2px 0 6px rgba(0,0,0,0.2);
+      transition: background 0.15s, left 0.25s ease;
+    }
+    #sidebar-toggle:hover { background: #0d2e52; }
+    #sidebar-toggle .toggle-arrow {
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    #sidebar-toggle.is-collapsed .toggle-arrow { transform: rotate(180deg); }
+
+    .sidebar-section { border-bottom: 1px solid #eef1f5; }
+    .sidebar-section-header {
+      padding: 10px 14px 6px;
+      font-size: 10px; font-weight: 700; color: #8899aa;
+      text-transform: uppercase; letter-spacing: 0.6px;
+    }
+
+    /* Stat cards */
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
+    .stat-card {
+      background: #f7f9fc; border-radius: 8px; padding: 10px 12px;
+      border: 1px solid #e8edf3;
+    }
+    .stat-card .val { font-size: 22px; font-weight: 700; color: #1a2a3a; }
+    .stat-card .lbl { font-size: 10px; color: #7a8fa0; margin-top: 2px; }
+    .stat-card.red .val { color: #c0392b; }
+    .stat-card.amber .val { color: #d68910; }
+    .stat-card.green .val { color: #1e8449; }
+
+    /* Filter */
+    .filter-area { padding: 8px 12px; }
+    .filter-area select {
+      width: 100%; padding: 6px 10px; border-radius: 6px;
+      border: 1px solid #cdd5de; background: #f7f9fc;
+      font-size: 12px; color: #1a2a3a; cursor: pointer;
+    }
+    .filter-area select:focus { outline: none; border-color: #2196f3; }
+
+    /* Kelurahan list */
+    .kel-list { flex: 1; }
+    .kel-item {
+      padding: 8px 14px; cursor: pointer;
+      border-bottom: 1px solid #f0f3f6; transition: background 0.12s;
+      position: relative;
+    }
+    .kel-item:hover { background: #f0f7ff; }
+    .kel-item.active { background: #e3f0ff; border-left: 3px solid #1a4a7a; }
+    .kel-item .kel-rank {
+      position: absolute; right: 12px; top: 10px;
+      font-size: 10px; font-weight: 700; color: #b0bec5;
+    }
+    .kel-item .kel-name { font-size: 13px; font-weight: 600; color: #1a2a3a; }
+    .kel-item .kel-detail {
+      font-size: 11px; color: #7a8fa0; margin-top: 2px;
+      display: flex; gap: 10px;
+    }
+    .kel-item .kel-total {
+      font-size: 12px; font-weight: 700; margin-top: 4px;
+    }
+    .kel-item .kel-bar {
+      height: 4px; background: #e8edf3; border-radius: 3px; margin-top: 5px; overflow: hidden;
+    }
+    .kel-item .kel-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+
+    /* ── MAP ── */
+    #map-container { flex: 1; position: relative; }
+    #map { width: 100%; height: 100%; }
+
+    /* Popup Info */
+    #info-popup {
+      position: absolute; top: 12px; right: 12px; z-index: 1000;
+      background: #fff; border-radius: 10px; padding: 14px 16px;
+      width: 210px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border: 1px solid #dde3ea; display: none;
+    }
+    #info-popup .popup-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    #info-popup h3 { font-size: 14px; font-weight: 700; color: #1a2a3a; }
+    #info-popup .close-btn {
+      width: 20px; height: 20px; background: #f0f3f6; border: none;
+      border-radius: 50%; cursor: pointer; font-size: 12px; line-height: 20px; text-align: center;
+    }
+    .info-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; margin-bottom: 8px;
+    }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; padding: 3px 0; border-bottom: 1px solid #f5f7fa;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .lbl { color: #7a8fa0; }
+    .info-row .val { font-weight: 600; color: #1a2a3a; }
+
+    /* Legend */
+    #legend {
+      position: absolute; bottom: 14px; right: 14px; z-index: 1000;
+      background: rgba(255,255,255,0.95); border-radius: 8px;
+      padding: 10px 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+      border: 1px solid #dde3ea; font-size: 11px;
+    }
+    #legend .leg-title { font-weight: 700; color: #5a6a7a; margin-bottom: 6px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .leg-row { display: flex; align-items: center; gap: 7px; margin: 4px 0; }
+    .leg-box { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid rgba(0,0,0,0.15); }
+
+    /* Bottom bar */
+    #bottom-bar {
+      background: #1a2a3a; color: rgba(255,255,255,0.65);
+      padding: 5px 16px; font-size: 11px; display: flex;
+      justify-content: space-between; flex-shrink: 0;
+    }
+
+    /* Table Modal */
+    #modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.55); align-items: center; justify-content: center;
+    }
+    #modal-overlay.open { display: flex; }
+    #modal-box {
+      background: #fff; border-radius: 12px; width: 90%; max-width: 780px;
+      max-height: 85vh; display: flex; flex-direction: column;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    }
+    #modal-header {
+      padding: 16px 20px; border-bottom: 1px solid #eef1f5;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #modal-header h2 { font-size: 15px; font-weight: 700; }
+    #modal-body { overflow-y: auto; padding: 16px 20px; flex: 1; }
+    #modal-footer { padding: 12px 20px; border-top: 1px solid #eef1f5; display: flex; gap: 8px; justify-content: flex-end; }
+
+    /* Data Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .data-table thead tr { background: #0d2e52; color: #fff; }
+    .data-table thead th { padding: 9px 10px; text-align: left; font-weight: 600; }
+    .data-table tbody tr { border-bottom: 1px solid #eef1f5; }
+    .data-table tbody tr:hover { background: #f5f8ff; }
+    .data-table tbody td { padding: 8px 10px; }
+    .data-table tfoot tr { background: #f0f4f8; font-weight: 700; }
+    .data-table tfoot td { padding: 9px 10px; }
+    .cat-badge {
+      padding: 2px 7px; border-radius: 10px; font-size: 10px; font-weight: 700;
+    }
+    .cat-kritis { background: #fde8e8; color: #c0392b; }
+    .cat-tinggi { background: #fdf0e0; color: #d35400; }
+    .cat-sedang { background: #fef9e7; color: #d68910; }
+    .cat-rendah { background: #eafaf1; color: #1e8449; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+      background: #27ae60; color: #fff; padding: 10px 20px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; z-index: 3000; opacity: 0;
+      transition: opacity 0.3s; pointer-events: none;
+    }
+    #toast.show { opacity: 1; }
+
+    /* Leaflet popup override */
+    .leaflet-popup-content-wrapper { border-radius: 8px !important; }
+  </style>
+
+<!-- SIG TOOLBAR (menggantikan header terpisah) -->
+<div id="sig-toolbar">
+  <div class="brand">
+    <div class="logo">🗺️</div>
+    <div>
+      <h2>Sistem Informasi Geografis – Anak Tidak Sekolah
+        <span>Kecamatan Tempe, Kabupaten Wajo – T.A. 2024/2025</span>
+      </h2>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="sig-btn sig-btn-outline" onclick="openSigModal()">📋 Tabel Rekap</button>
+    <button class="sig-btn sig-btn-success" onclick="exportExcel()">📥 Ekspor Excel</button>
+    <button id="btn-fullscreen" onclick="toggleFullscreen()" title="Layar Penuh">⛶</button>
+  </div>
+</div>
+
+<!-- SIG MAIN -->
+<div id="sig-main">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-header">Ringkasan Kecamatan Tempe</div>
+      <div class="stat-grid">
+        <div class="stat-card red"><div class="val" id="tot-ats">0</div><div class="lbl">Total ATS</div></div>
+        <div class="stat-card"><div class="val">14</div><div class="lbl">Kelurahan</div></div>
+        <div class="stat-card amber"><div class="val" id="tot-sd">0</div><div class="lbl">Putus SD</div></div>
+        <div class="stat-card amber"><div class="val" id="tot-smp">0</div><div class="lbl">Putus SMP</div></div>
+        <div class="stat-card amber"><div class="val" id="tot-sma">0</div><div class="lbl">Putus SMA</div></div>
+        <div class="stat-card green"><div class="val" id="tot-ltm">0</div><div class="lbl">Lulus Tidak Melanjutkan</div></div>
+        <div class="stat-card green"><div class="val" id="tot-bpb">0</div><div class="lbl">Belum Pernah Bersekolah</div></div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-header">Filter Jenjang</div>
+      <div class="filter-area">
+        <select id="filter-level" onchange="applyFilter()">
+          <option value="all">Semua Jenjang</option>
+          <option value="sd">PUTUS SD</option>
+          <option value="smp">PUTUS SMP</option>
+          <option value="sma">PUTUS SMA</option>
+          <option value="ltm">Lulus Tidak Melanjutkan</option>
+          <option value="bpb">Belum Pernah Bersekolah</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sidebar-section-header">Peringkat Kelurahan</div>
+    <div class="kel-list" id="kel-list"></div>
+  </div>
+
+  <!-- MAP -->
+  <div id="map-container">
+    <!-- Tombol buka/tutup sidebar -->
+    <button id="sidebar-toggle" onclick="toggleSidebar()" title="Buka/Tutup Sidebar">
+      <span class="toggle-arrow">&#9664;</span>
+    </button>
+
+    <div id="map"></div>
+
+    <!-- Info popup -->
+    <div id="info-popup">
+      <div class="popup-header">
+        <h3 id="popup-name">–</h3>
+        <button class="close-btn" onclick="closePopup()">✕</button>
+      </div>
+      <div id="popup-badge" class="info-badge"></div>
+      <div class="info-row"><span class="lbl">Total ATS</span><span class="val" id="p-total">–</span></div>
+      <div class="info-row"><span class="lbl">Putus SD</span><span class="val" id="p-sd">–</span></div>
+      <div class="info-row"><span class="lbl">Putus SMP</span><span class="val" id="p-smp">–</span></div>
+      <div class="info-row"><span class="lbl">Putus SMA</span><span class="val" id="p-sma">–</span></div>
+      <div class="info-row"><span class="lbl">LTM</span><span class="val" id="p-ltm">–</span></div>
+      <div class="info-row"><span class="lbl">BPB</span><span class="val" id="p-bpb">–</span></div>
+    </div>
+
+    <!-- Legend -->
+    <div id="legend">
+      <div class="leg-title">Jumlah ATS</div>
+      <div class="leg-row"><div class="leg-box" style="background:#fde8e8;border-color:#e0b0b0"></div><span>&lt; 24 &nbsp;— Rendah</span></div>
+      <div class="leg-row"><div class="leg-box" style="background:#f9b3b3;border-color:#d07070"></div><span>25–49 — Sedang</span></div>
+      <div class="leg-row"><div class="leg-box" style="background:#e96060;border-color:#c03030"></div><span>50–69 — Tinggi</span></div>
+      <div class="leg-row"><div class="leg-box" style="background:#c0392b;border-color:#8b1a12"></div><span>≥ 70 &nbsp;— Kritis</span></div>
+    </div>
+  </div>
+</div><!-- /sig-main -->
+
+<!-- BOTTOM BAR -->
+<div id="bottom-bar">
+  <span>Sumber: Data Verval ATS – Dinas Pendidikan dan Kebudayaan Kabupaten Wajo @2026</span>
+  <span id="coord-display">Arahkan kursor ke peta untuk koordinat</span>
+</div>
+
+<!-- TABLE MODAL -->
+<div id="modal-overlay" onclick="closeSigModal(event)">
+  <div id="modal-box">
+    <div id="modal-header">
+      <h2>📋 Rekapitulasi Data ATS – Kecamatan Tempe</h2>
+      <button class="btn btn-outline" style="background:#eee;color:#333;border-color:#ccc;" onclick="closeSigModal()">✕ Tutup</button>
+    </div>
+    <div id="modal-body">
+      <table class="data-table" id="rekap-table">
+        <thead>
+          <tr>
+            <th>No</th><th>Kelurahan</th><th>Putus SD</th><th>Putus SMP</th>
+            <th>Putus SMA</th><th>Total ATS</th><th>LTM</th><th>BPB</th><th>Kategori</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+        <tfoot id="table-foot"></tfoot>
+      </table>
+    </div>
+    <div id="modal-footer">
+      <button class="btn btn-success" onclick="exportExcel()">📥 Ekspor ke Excel (.xlsx)</button>
+      <button class="btn btn-primary" onclick="exportCSV()">📄 Ekspor ke CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+// =====================================================================
+// DATA KELURAHAN – Kecamatan Tempe, Wajo
+// Ganti nilai sd, smp, sma, l, p dengan data riil dari Verval ATS
+// =====================================================================
+const kelurahanData = [
+  { id:  1, nama: "Tempe",          sd:  0, smp: 14, sma:  2, ltm: 16, bpb: 80, lat: -4.1212128882717485,  lng: 120.02618343755783 },
+  { id:  2, nama: "Siengkang",      sd:  1, smp:  1, sma:  0, ltm: 3, bpb: 23, lat: -4.139069683453755, lng: 120.03366828839097 },
+  { id:  3, nama: "Cempalagi",      sd:  1, smp:  0, sma:  0, ltm: 3, bpb:  0, lat: -4.118837766106105, lng: 120.04148882625374 },
+  { id:  4, nama: "Maddukkelleng",  sd:  1, smp:  0, sma:  1, ltm: 10, bpb: 46, lat: -4.146197186550930, lng: 120.03478598675048 },
+  { id:  5, nama: "Pattirosompe",   sd:  6, smp: 36, sma:  3, ltm:  4, bpb: 18, lat: -4.1326138780419095, lng: 120.03694222879265 },
+  { id:  6, nama: "Salomenraleng",  sd:  0, smp: 6, sma:  0, ltm: 8, bpb: 10, lat: -4.129895575415803,  lng: 120.01882838191369 },
+  { id:  7, nama: "Lapongkoda",     sd:  3, smp: 5, sma: 10, ltm: 13, bpb: 35, lat: -4.1308555726161424, lng: 120.03531464696707 },
+  { id:  8, nama: "Atakkae",        sd:  2, smp:  4, sma:  1, ltm:  12, bpb:  38, lat: -4.144827604501276,  lng: 120.0524195253476 },
+  { id:  9, nama: "Sitampae",        sd: 0, smp: 0, sma:  0, ltm: 1, bpb: 13, lat: -4.156284082719979, lng: 120.03882772419665 },
+  { id: 10, nama: "Wiringpalennae", sd:  4, smp:  1, sma:  1, ltm: 12, bpb:  31, lat: -4.154016278834265,  lng: 120.027594073461 },
+  { id: 11, nama: "Mattirotappareng",sd:  0, smp:  2, sma:  2, ltm:  10, bpb:  28, lat: -4.118255870454383, lng: 120.02289933629035 },
+  { id: 12, nama: "Teddaopu",       sd: 1, smp: 4, sma:  1, ltm: 7, bpb: 26, lat: -4.126393054318751, lng: 120.02985789100127 },
+  { id: 13, nama: "Laelo",          sd:  3, smp:  0, sma:  2, ltm:  14, bpb:  13, lat: -4.126672668523184, lng: 120.02029348169906 },
+  { id: 14, nama: "Watallipue",     sd:  1, smp:  2, sma:  2, ltm:  3, bpb:  30, lat: -4.125365075858462, lng: 120.02307279923127 },
+  { id: 15, nama: "Bulupabbulu",    sd:  1, smp:  2, sma:  2, ltm:  4, bpb:  34, lat: -4.114252623498663, lng: 120.034574963239827 },
+  { id: 16, nama: "Padduppa",       sd:  0, smp:  3, sma:  1, ltm:  1, bpb:  13, lat: -4.136869582732262, lng: 120.03135684159643 },
+  ];
+
+// Hitung total dan tambah field turunan
+kelurahanData.forEach(k => {
+  k.total = k.sd + k.smp + k.sma + k.ltm + k.bpb
+});
+const maxTotal = Math.max(...kelurahanData.map(d => d.total));
+
+// =====================================================================
+// HELPERS
+// =====================================================================
+function getColor(total) {
+  if (total >= 70) return '#c0392b';
+  if (total >= 50) return '#e96060';
+  if (total >= 25) return '#f9b3b3';
+  return '#fde8e8';
+}
+
+function getCategory(total) {
+  if (total >= 70) return 'Kritis';
+  if (total >= 50) return 'Tinggi';
+  if (total >= 25) return 'Sedang';
+  return 'Rendah';
+}
+
+function getCatClass(total) {
+  if (total >= 70) return 'cat-kritis';
+  if (total >= 50) return 'cat-tinggi';
+  if (total >= 25) return 'cat-sedang';
+  return 'cat-rendah';
+}
+
+function getFilteredValue(k) {
+  const f = document.getElementById('filter-level').value;
+  if (f === 'sd')  return k.sd;
+  if (f === 'smp') return k.smp;
+  if (f === 'sma') return k.sma;
+  if (f === 'ltm') return k.ltm;
+  if (f === 'bpb') return k.bpb;
+  return k.total;
+}
+
+// =====================================================================
+// STATS
+// =====================================================================
+function updateSigStats() {
+  document.getElementById('tot-ats').textContent = kelurahanData.reduce((s,k)=>s+k.total,0);
+  document.getElementById('tot-sd').textContent  = kelurahanData.reduce((s,k)=>s+k.sd,0);
+  document.getElementById('tot-smp').textContent = kelurahanData.reduce((s,k)=>s+k.smp,0);
+  document.getElementById('tot-sma').textContent = kelurahanData.reduce((s,k)=>s+k.sma,0);
+  document.getElementById('tot-ltm').textContent   = kelurahanData.reduce((s,k)=>s+k.ltm,0);
+  document.getElementById('tot-bpb').textContent   = kelurahanData.reduce((s,k)=>s+k.bpb,0);
+}
+
+// =====================================================================
+// SIDEBAR LIST
+// =====================================================================
+function buildSidebar() {
+  const sorted = [...kelurahanData].sort((a,b)=>getFilteredValue(b)-getFilteredValue(a));
+  const container = document.getElementById('kel-list');
+  container.innerHTML = '';
+  sorted.forEach((k, idx) => {
+    const val  = getFilteredValue(k);
+    const pct  = Math.round((val / maxTotal) * 100);
+    const color = getColor(k.total);
+    const div  = document.createElement('div');
+    div.className = 'kel-item';
+    div.id = 'kel-' + k.id;
+    div.innerHTML = `
+      <span class="kel-rank">#${idx+1}</span>
+      <div class="kel-name">${k.nama}</div>
+      <div class="kel-detail">
+        <span>SD: ${k.sd}</span><span>SMP: ${k.smp}</span><span>SMA: ${k.sma}</span><span>LTM: ${k.ltm}</span><span>BPB: ${k.bpb}</span>
+      </div>
+      <div class="kel-total" style="color:${color==='#fde8e8'?'#1e8449':color}">${val} ATS</div>
+      <div class="kel-bar"><div class="kel-fill" style="width:${pct}%;background:${color}"></div></div>
+    `;
+    div.onclick = () => selectKelurahan(k);
+    container.appendChild(div);
+  });
+}
+
+// =====================================================================
+// MAP SETUP — Lazy init (diinisialisasi saat tab SIG ATS pertama dibuka)
+// =====================================================================
+let map = null;
+let mapReady = false;
+
+function initMap() {
+  if (mapReady) return;
+  mapReady = true;
+
+  map = L.map('map', { zoomControl: true, attributionControl: false })
+    .setView([-4.13260, 120.03176], 14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, opacity: 0.65
+  }).addTo(map);
+
+  L.control.attribution({ prefix: '© OpenStreetMap contributors' }).addTo(map);
+
+  map.on('click', (e) => {
+    if (!e.originalEvent._stopped) closePopup();
+  });
+  map.on('mousemove', e => {
+    document.getElementById('coord-display').textContent =
+      `Lat: ${e.latlng.lat.toFixed(5)} | Lng: ${e.latlng.lng.toFixed(5)}`;
+  });
+
+  updateSigStats();
+  buildSidebar();
+  drawMarkers();
+}
+
+let layers = {};
+let activeId = null;
+
+function drawMarkers() {
+  Object.values(layers).forEach(lg => {
+    lg.circle && map.removeLayer(lg.circle);
+    lg.label  && map.removeLayer(lg.label);
+  });
+  layers = {};
+
+  kelurahanData.forEach(k => {
+    const val = getFilteredValue(k);
+    const r   = 14 + Math.round((val / maxTotal) * 24);
+    const fc  = getColor(k.total);
+
+    const circle = L.circleMarker([k.lat, k.lng], {
+      radius: r, fillColor: fc, color: '#fff', weight: 2.5, fillOpacity: 0.88
+    }).addTo(map);
+
+    const label = L.divIcon({
+      html: `<div style="font-size:10px;font-weight:700;color:#0d2e52;white-space:nowrap;
+                         text-shadow:0 0 3px #fff,0 0 3px #fff;text-align:center;line-height:1.3">
+               ${k.nama}<br><span style="font-size:11px;color:${fc==='#fde8e8'?'#1e8449':fc}">${val}</span>
+             </div>`,
+      className: '', iconAnchor: [42, -4]
+    });
+    const lMarker = L.marker([k.lat + 0.003, k.lng], { icon: label, interactive: false }).addTo(map);
+
+    circle.on('click', (e) => { L.DomEvent.stopPropagation(e); selectKelurahan(k); });
+    circle.on('mouseover', () => circle.setStyle({ weight: 4, color: '#0d2e52' }));
+    circle.on('mouseout',  () => { if (activeId !== k.id) circle.setStyle({ weight: 2.5, color: '#fff' }); });
+
+    layers[k.id] = { circle, label: lMarker };
+  });
+}
+
+// =====================================================================
+// SELECT KELURAHAN
+// =====================================================================
+function selectKelurahan(k) {
+  // Reset previous
+  if (activeId && layers[activeId]) {
+    layers[activeId].circle.setStyle({ weight: 2.5, color: '#fff' });
+  }
+  activeId = k.id;
+  layers[k.id].circle.setStyle({ weight: 4, color: '#0d2e52' });
+
+  // Sidebar highlight
+  document.querySelectorAll('.kel-item').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('kel-' + k.id);
+  if (el) { el.classList.add('active'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+
+  // Pan map — reapply active style after pan to avoid mouseout race condition
+  map.panTo([k.lat, k.lng]);
+  setTimeout(() => {
+    if (activeId && layers[activeId]) {
+      layers[activeId].circle.setStyle({ weight: 4, color: '#0d2e52' });
+    }
+  }, 50);
+
+  // Info popup
+  const cat = getCategory(k.total);
+  const catColor = getColor(k.total);
+  document.getElementById('popup-name').textContent = 'Kel. ' + k.nama;
+  const badge = document.getElementById('popup-badge');
+  badge.textContent = cat;
+  badge.style.background = catColor === '#fde8e8' ? '#eafaf1' : catColor + '33';
+  badge.style.color = catColor === '#fde8e8' ? '#1e8449' : catColor;
+  document.getElementById('p-total').textContent = k.total + ' anak';
+  document.getElementById('p-sd').textContent    = k.sd    + ' anak';
+  document.getElementById('p-smp').textContent   = k.smp   + ' anak';
+  document.getElementById('p-sma').textContent   = k.sma   + ' anak';
+  document.getElementById('p-ltm').textContent   = k.ltm   + ' anak';
+  document.getElementById('p-bpb').textContent   = k.bpb   + ' anak';
+  document.getElementById('info-popup').style.display = 'block';
+}
+
+function closePopup() {
+  document.getElementById('info-popup').style.display = 'none';
+  if (activeId && layers[activeId]) layers[activeId].circle.setStyle({ weight: 2.5, color: '#fff' });
+  activeId = null;
+  document.querySelectorAll('.kel-item').forEach(el => el.classList.remove('active'));
+}
+
+// =====================================================================
+// FILTER
+// =====================================================================
+function applyFilter() {
+  if (!mapReady) return;
+  buildSidebar();
+  drawMarkers();
+}
+
+// =====================================================================
+// TABLE MODAL (SIG ATS)
+// =====================================================================
+function openSigModal() {
+  buildTable();
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeSigModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay')) {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+}
+
+function buildTable() {
+  const sorted = [...kelurahanData].sort((a,b) => b.total - a.total);
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = '';
+  sorted.forEach((k, i) => {
+    const cat = getCategory(k.total);
+    tbody.innerHTML += `
+      <tr>
+        <td>${i+1}</td>
+        <td><strong>${k.nama}</strong></td>
+        <td style="text-align:center">${k.sd}</td>
+        <td style="text-align:center">${k.smp}</td>
+        <td style="text-align:center">${k.sma}</td>
+        <td style="text-align:center;font-weight:700">${k.total}</td>
+        <td style="text-align:center">${k.ltm}</td>
+        <td style="text-align:center">${k.bpb}</td>
+        <td><span class="cat-badge ${getCatClass(k.total)}">${cat}</span></td>
+      </tr>`;
+  });
+
+  const totSD  = kelurahanData.reduce((s,k)=>s+k.sd,0);
+  const totSMP = kelurahanData.reduce((s,k)=>s+k.smp,0);
+  const totSMA = kelurahanData.reduce((s,k)=>s+k.sma,0);
+  const totAll = kelurahanData.reduce((s,k)=>s+k.total,0);
+  const totLTM   = kelurahanData.reduce((s,k)=>s+k.ltm,0);
+  const totBPB   = kelurahanData.reduce((s,k)=>s+k.bpb,0);
+
+  document.getElementById('table-foot').innerHTML = `
+    <tr>
+      <td colspan="2" style="text-align:right">TOTAL</td>
+      <td style="text-align:center">${totSD}</td>
+      <td style="text-align:center">${totSMP}</td>
+      <td style="text-align:center">${totSMA}</td>
+      <td style="text-align:center">${totAll}</td>
+      <td style="text-align:center">${totLTM}</td>
+      <td style="text-align:center">${totBPB}</td>
+      <td></td>
+    </tr>`;
+}
+
+// =====================================================================
+// EKSPOR EXCEL (SheetJS)
+// =====================================================================
+function exportExcel() {
+  const wb = XLSX.utils.book_new();
+
+  // ── Sheet 1: Data Detail ──
+  const sorted = [...kelurahanData].sort((a,b) => b.total - a.total);
+
+  const header = [
+    ['REKAPITULASI DATA ANAK TIDAK SEKOLAH (ATS)'],
+    ['Kecamatan Tempe, Kabupaten Wajo – T.A. 2024/2025'],
+    ['Sumber: Verval ATS, Dinas Pendidikan Kabupaten Wajo'],
+    [],
+    ['No', 'Kelurahan', 'Putus SD', 'Putus SMP', 'Putus SMA',
+     'Total ATS', 'Laki-laki', 'Perempuan', 'Kategori']
+  ];
+
+  const rows = sorted.map((k, i) => [
+    i+1, k.nama, k.sd, k.smp, k.sma, k.total, k.ltm, k.bpb, getCategory(k.total)
+  ]);
+
+  const totSD  = kelurahanData.reduce((s,k)=>s+k.sd,0);
+  const totSMP = kelurahanData.reduce((s,k)=>s+k.smp,0);
+  const totSMA = kelurahanData.reduce((s,k)=>s+k.sma,0);
+  const totAll = kelurahanData.reduce((s,k)=>s+k.total,0);
+  const totLTM   = kelurahanData.reduce((s,k)=>s+k.ltm,0);
+  const totBPB   = kelurahanData.reduce((s,k)=>s+k.bpb,0);
+
+  const footer = [
+    [],
+    ['', 'TOTAL', totSD, totSMP, totSMA, totAll, totLTM, totBPB, '']
+  ];
+
+  const allRows = [...header, ...rows, ...footer];
+  const ws1 = XLSX.utils.aoa_to_sheet(allRows);
+
+  // Lebar kolom
+  ws1['!cols'] = [
+    {wch:5},{wch:20},{wch:11},{wch:11},{wch:11},{wch:11},{wch:11},{wch:11},{wch:10}
+  ];
+
+  // Merge judul
+  ws1['!merges'] = [
+    { s:{r:0,c:0}, e:{r:0,c:8} },
+    { s:{r:1,c:0}, e:{r:1,c:8} },
+    { s:{r:2,c:0}, e:{r:2,c:8} },
+  ];
+
+  XLSX.utils.book_append_sheet(wb, ws1, 'Data ATS');
+
+  // ── Sheet 2: Ringkasan per Jenjang ──
+  const sumRows = [
+    ['RINGKASAN PER JENJANG PENDIDIKAN'],
+    ['Kecamatan Tempe, Kabupaten Wajo'],
+    [],
+    ['Jenjang', 'Jumlah ATS', 'Persentase'],
+    ['SD / Sederajat',  totSD,  parseFloat(((totSD/totAll)*100).toFixed(1))],
+    ['SMP / Sederajat', totSMP, parseFloat(((totSMP/totAll)*100).toFixed(1))],
+    ['SMA / Sederajat', totSMA, parseFloat(((totSMA/totAll)*100).toFixed(1))],
+    ['SMA / Sederajat', totLTM, parseFloat(((totLTM/totAll)*100).toFixed(1))],
+    ['SMA / Sederajat', totBPB, parseFloat(((totSMA/totBPB)*100).toFixed(1))],
+    [],
+    ['TOTAL', totAll, 100.0],
+  ];
+  const ws2 = XLSX.utils.aoa_to_sheet(sumRows);
+  ws2['!cols'] = [{wch:20},{wch:14},{wch:14}];
+  ws2['!merges'] = [
+    { s:{r:0,c:0}, e:{r:0,c:2} },
+    { s:{r:1,c:0}, e:{r:1,c:2} },
+  ];
+  XLSX.utils.book_append_sheet(wb, ws2, 'Ringkasan Jenjang');
+
+  // ── Sheet 3: Kategori Risiko ──
+  const kritis = kelurahanData.filter(k=>k.total>=30);
+  const tinggi = kelurahanData.filter(k=>k.total>=20&&k.total<30);
+  const sedang = kelurahanData.filter(k=>k.total>=10&&k.total<20);
+  const rendah = kelurahanData.filter(k=>k.total<10);
+
+  const catRows = [
+    ['SEBARAN KATEGORI RISIKO ATS'],
+    ['Kecamatan Tempe, Kabupaten Wajo'],
+    [],
+    ['Kategori','Jumlah Kelurahan','Keterangan'],
+    ['Kritis (≥70)',  kritis.length, kritis.map(k=>k.nama).join(', ')||'-'],
+    ['Tinggi (50–69)',tinggi.length, tinggi.map(k=>k.nama).join(', ')||'-'],
+    ['Sedang (25–49)',sedang.length, sedang.map(k=>k.nama).join(', ')||'-'],
+    ['Rendah (<10)',  rendah.length, rendah.map(k=>k.nama).join(', ')||'-'],
+  ];
+  const ws3 = XLSX.utils.aoa_to_sheet(catRows);
+  ws3['!cols'] = [{wch:16},{wch:20},{wch:50}];
+  ws3['!merges'] = [
+    { s:{r:0,c:0}, e:{r:0,c:2} },
+    { s:{r:1,c:0}, e:{r:1,c:2} },
+  ];
+  XLSX.utils.book_append_sheet(wb, ws3, 'Kategori Risiko');
+
+  // Simpan file
+  const fileName = `ATS_KecTempe_Wajo_${new Date().toISOString().slice(0,10)}.xlsx`;
+  XLSX.writeFile(wb, fileName);
+  showToast('✅ File Excel berhasil diunduh: ' + fileName);
+}
+
+// =====================================================================
+// EKSPOR CSV
+// =====================================================================
+function exportCSV() {
+  const sorted = [...kelurahanData].sort((a,b)=>b.total-a.total);
+  const header = 'No,Kelurahan,Putus SD,Putus SMP,Putus SMA,Total ATS,Lulus Tidak Melanjutkan,Belum Pernah Bersekolah,Kategori\n';
+  const rows = sorted.map((k,i) =>
+    `${i+1},${k.nama},${k.sd},${k.smp},${k.sma},${k.total},${k.ltm},${k.bpb},${getCategory(k.total)}`
+  ).join('\n');
+  const blob = new Blob(['\uFEFF' + header + rows], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `ATS_KecTempe_Wajo_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ File CSV berhasil diunduh!');
+}
+
+// =====================================================================
+// TOAST
+// =====================================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// =====================================================================
+// TOGGLE FULLSCREEN
+// =====================================================================
+function toggleFullscreen() {
+  const page = document.getElementById('page-SIG ATS');
+  const btn  = document.getElementById('btn-fullscreen');
+  const isFs = page.classList.contains('fullscreen');
+
+  if (!isFs) {
+    // Coba Fullscreen API browser dulu
+    if (page.requestFullscreen) {
+      page.requestFullscreen().catch(() => cssFullscreen(page, btn, true));
+    } else if (page.webkitRequestFullscreen) {
+      page.webkitRequestFullscreen();
+    } else {
+      cssFullscreen(page, btn, true);
+    }
+  } else {
+    if (document.exitFullscreen && document.fullscreenElement) {
+      document.exitFullscreen().catch(() => cssFullscreen(page, btn, false));
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else {
+      cssFullscreen(page, btn, false);
+    }
+  }
+}
+
+function cssFullscreen(page, btn, enter) {
+  if (enter) {
+    page.classList.add('fullscreen');
+    btn.textContent = '✕';
+    btn.title = 'Keluar Layar Penuh';
+  } else {
+    page.classList.remove('fullscreen');
+    btn.textContent = '⛶';
+    btn.title = 'Layar Penuh';
+  }
+  setTimeout(() => { if (map) map.invalidateSize(); }, 50);
+}
+
+// Sinkronkan ikon saat fullscreen berubah via tombol Esc / F11
+document.addEventListener('fullscreenchange', () => {
+  const page = document.getElementById('page-SIG ATS');
+  const btn  = document.getElementById('btn-fullscreen');
+  if (!document.fullscreenElement) {
+    page.classList.remove('fullscreen');
+    btn.textContent = '⛶';
+    btn.title = 'Layar Penuh';
+  } else {
+    page.classList.add('fullscreen');
+    btn.textContent = '✕';
+    btn.title = 'Keluar Layar Penuh';
+  }
+  setTimeout(() => { if (map) map.invalidateSize(); }, 50);
+});
+
+// =====================================================================
+// TOGGLE SIDEBAR
+// =====================================================================
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const btn     = document.getElementById('sidebar-toggle');
+  sidebar.classList.toggle('collapsed');
+  btn.classList.toggle('is-collapsed');
+  // Paksa Leaflet recalculate ukuran map setelah animasi selesai
+  setTimeout(() => { if (map) map.invalidateSize(); }, 280);
+}
+
+// =====================================================================
+// INIT — Map akan diinisialisasi lazy saat tab SIG ATS dibuka
+// =====================================================================
+</script>
+
+  </div><!-- /page-SIG ATS -->
+
+  <!-- ══ VERIFIKASI ══ -->
+  <div class="page" id="page-verifikasi">
+    <div class="section-header">
+      <h3>Verifikasi Berkas Pendaftar</h3>
+    </div>
+    <div class="info-box"><i class="ti ti-shield-check"></i> Halaman ini digunakan petugas SKB untuk memverifikasi berkas fisik peserta. Pastikan berkas asli sudah diterima sebelum mengubah status.</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No. Reg.</th>
+              <th>Nama Peserta</th>
+              <th>Program</th>
+              <th>No. HP</th>
+              <th>Status</th>
+              <th>Aksi Verifikasi</th>
+            </tr>
+          </thead>
+          <tbody id="verif-tbody">
+            <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:36px;">Tidak ada data yang menunggu verifikasi.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CETAK / LAPORAN ══ -->
+  <div class="page" id="page-cetak">
+    <div class="section-header"><h3>Laporan & Cetak Data</h3></div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-chart-bar"></i> Rekapitulasi Pendaftar</div>
+      <div id="rekap-content" style="font-size:13px; color:var(--text-muted); padding:8px 0;">Belum ada data pendaftar.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-printer"></i> Cetak Daftar Peserta</div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">Cetak daftar peserta didik untuk keperluan administrasi SKB Sengkang.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="cetakData()"><i class="ti ti-printer"></i> Cetak Semua Peserta</button>
+        <button class="btn btn-secondary" onclick="eksporCSV()"><i class="ti ti-table-export"></i> Ekspor ke CSV</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- ══ MODAL SUKSES ══ -->
+<div class="modal-backdrop" id="success-modal">
+  <div class="modal-box">
+    <div class="modal-icon"><i class="ti ti-circle-check"></i></div>
+    <h3>Pendaftaran Berhasil!</h3>
+    <p>Nomor Registrasi Anda:</p>
+    <div class="no-reg" id="no-reg-display">SKB-2025-0001</div>
+    <p>Simpan nomor registrasi ini dengan baik. Petugas SKB Sengkang akan menghubungi Anda untuk konfirmasi. Harap datang ke kantor SKB dengan membawa berkas asli sesuai persyaratan.</p>
+    <button class="btn btn-primary" onclick="closeModal()"><i class="ti ti-check"></i> Selesai</button>
+  </div>
+</div>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────────────────
+  var pesertaList   = [];
+  var selectedProg  = '';
+  var currentStep   = 1;
+  var regCounter    = 1;
+
+  // ─── NAVIGASI ────────────────────────────────────────────────────────
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+    if (id === 'cetak') buildRekap();
+    if (id === 'SIG ATS') {
+      // Init map lazy saat pertama dibuka, lalu invalidate size setiap kali tab aktif
+      setTimeout(function() {
+        if (!mapReady) {
+          initMap();
+        } else {
+          map.invalidateSize();
+        }
+      }, 50);
+    }
+  }
+
+  // ─── PILIH PROGRAM ───────────────────────────────────────────────────
+  function selectProgram(el, name) {
+    document.querySelectorAll('.program-card').forEach(function(c){ c.classList.remove('selected'); });
+    el.classList.add('selected');
+    selectedProg = name;
+  }
+
+  // ─── NAVIGASI STEP ───────────────────────────────────────────────────
+  function goStep(n) {
+    if (n === 2) {
+      if (!selectedProg) { alert('Silakan pilih program pendidikan terlebih dahulu.'); return; }
+      if (!val('f-gelombang')) { alert('Silakan pilih gelombang pendaftaran.'); return; }
+    }
+    if (n === 3) {
+      if (!val('f-nama'))   { alert('Nama lengkap wajib diisi.'); return; }
+      if (!val('f-nik') || val('f-nik').length < 16) { alert('NIK harus 16 digit.'); return; }
+      if (!val('f-tgllahir')) { alert('Tanggal lahir wajib diisi.'); return; }
+      if (!val('f-jk'))     { alert('Jenis kelamin wajib dipilih.'); return; }
+      if (!val('f-agama'))  { alert('Agama wajib dipilih.'); return; }
+      if (!val('f-hp'))     { alert('Nomor telepon wajib diisi.'); return; }
+      if (!val('f-alamat')) { alert('Alamat wajib diisi.'); return; }
+      if (!val('f-kec'))    { alert('Kecamatan wajib dipilih.'); return; }
+    }
+    if (n === 4) {
+      if (!val('f-pendterakhir')) { alert('Pendidikan terakhir wajib dipilih.'); return; }
+      if (!val('f-ortu'))         { alert('Nama orang tua/wali wajib diisi.'); return; }
+      buildPreview();
+    }
+    currentStep = n;
+    for (var i = 1; i <= 4; i++) {
+      var fs = document.getElementById('form-step-' + i);
+      if (fs) fs.style.display = (i === n) ? 'block' : 'none';
+      var si = document.getElementById('si-' + i);
+      if (si) si.className = 'step ' + (i < n ? 'done' : i === n ? 'active' : 'pending');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  // ─── PREVIEW KONFIRMASI ───────────────────────────────────────────────
+  function buildPreview() {
+    var rows = [
+      ['Program Dipilih', selectedProg],
+      ['Gelombang', val('f-gelombang')],
+      ['Nama Lengkap', val('f-nama')],
+      ['NIK', val('f-nik')],
+      ['No. KK', val('f-kk') || '-'],
+      ['Tempat / Tgl Lahir', val('f-tmplahir') + ', ' + val('f-tgllahir')],
+      ['Jenis Kelamin', val('f-jk')],
+      ['Agama', val('f-agama')],
+      ['Status Pernikahan', val('f-status') || '-'],
+      ['No. Telepon', val('f-hp')],
+      ['Email', val('f-email') || '-'],
+      ['Alamat', val('f-alamat')],
+      ['Kecamatan', val('f-kec')],
+      ['Pekerjaan', val('f-pekerjaan') || '-'],
+      ['Pendidikan Terakhir', val('f-pendterakhir')],
+      ['Sekolah Terakhir', val('f-namasekolah') || '-'],
+      ['Alasan Tidak Sekolah', val('f-alasan') || '-'],
+      ['Orang Tua / Wali', val('f-ortu')],
+      ['No. HP Orang Tua', val('f-hportu') || '-'],
+      ['Kondisi Khusus', val('f-kondisi') || 'Tidak ada'],
+    ];
+    var html = '<table style="width:100%; font-size:13px;">';
+    rows.forEach(function(r, i) {
+      var bg = i % 2 === 0 ? '' : 'background:var(--bg);';
+      html += '<tr style="' + bg + '"><td style="padding:8px 12px; color:var(--text-muted); width:38%; vertical-align:top;">' + r[0] + '</td><td style="padding:8px 12px; font-weight:500;">' + r[1] + '</td></tr>';
+    });
+    html += '</table>';
+    document.getElementById('preview-data').innerHTML = html;
+  }
+
+  // ─── SUBMIT ──────────────────────────────────────────────────────────
+  function submitForm() {
+    if (!document.getElementById('f-setuju').checked) {
+      alert('Harap centang persetujuan terlebih dahulu.'); return;
+    }
+    var noReg = 'SKB-2025-' + String(regCounter).padStart(4, '0');
+    regCounter++;
+    var now = new Date();
+    var tgl = now.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
+    var peserta = {
+      noReg    : noReg,
+      nama     : val('f-nama'),
+      nik      : val('f-nik'),
+      jk       : val('f-jk'),
+      program  : selectedProg,
+      kecamatan: val('f-kec'),
+      hp       : val('f-hp'),
+      ortu     : val('f-ortu'),
+      gelombang: val('f-gelombang'),
+      pendidikan: val('f-pendterakhir'),
+      tgl      : tgl,
+      status   : 'Menunggu'
+    };
+    pesertaList.push(peserta);
+    updateStats();
+    renderTable();
+    renderVerifTable();
+    document.getElementById('no-reg-display').textContent = noReg;
+    document.getElementById('success-modal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('success-modal').classList.remove('show');
+    resetForm();
+    showPage('data');
+  }
+
+  function resetForm() {
+    selectedProg  = '';
+    currentStep   = 1;
+    document.querySelectorAll('.program-card').forEach(function(c){ c.classList.remove('selected'); });
+    ['f-nama','f-nik','f-kk','f-tmplahir','f-tgllahir','f-hp','f-email','f-alamat',
+     'f-namasekolah','f-tahunlulus','f-ortu','f-hportu','f-catatan'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    ['f-gelombang','f-jk','f-agama','f-status','f-kec','f-pekerjaan',
+     'f-pendterakhir','f-alasan','f-kondisi','f-sumber'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.selectedIndex = 0;
+    });
+    document.getElementById('f-setuju').checked = false;
+    goStep(1);
+  }
+
+  // ─── STATS ───────────────────────────────────────────────────────────
+  function updateStats() {
+    document.getElementById('stat-total').textContent   = pesertaList.length;
+    document.getElementById('stat-diterima').textContent = pesertaList.filter(function(p){ return p.status==='Diterima'; }).length;
+    document.getElementById('stat-pending').textContent  = pesertaList.filter(function(p){ return p.status==='Menunggu'; }).length;
+    document.getElementById('stat-ditolak').textContent  = pesertaList.filter(function(p){ return p.status==='Ditolak';  }).length;
+  }
+
+  // ─── TABEL PESERTA ───────────────────────────────────────────────────
+  function renderTable(list) {
+    var data = list || pesertaList;
+    var tbody = document.getElementById('peserta-tbody');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:36px;">Belum ada data pendaftar.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(function(p) {
+      return '<tr>' +
+        '<td style="font-family:monospace;font-size:12px;">' + p.noReg + '</td>' +
+        '<td>' + p.nama + '</td>' +
+        '<td>' + p.jk.charAt(0) + '</td>' +
+        '<td><span class="badge badge-blue">' + p.program + '</span></td>' +
+        '<td>' + p.kecamatan + '</td>' +
+        '<td style="font-size:12px;color:var(--text-muted);">' + p.tgl + '</td>' +
+        '<td>' + badgeStatus(p.status) + '</td>' +
+        '<td><button class="btn btn-danger" style="padding:4px 10px;font-size:12px;" onclick="hapus(\'' + p.noReg + '\')"><i class="ti ti-trash"></i></button></td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // ─── TABEL VERIFIKASI ────────────────────────────────────────────────
+  function renderVerifTable() {
+    var pending = pesertaList.filter(function(p){ return p.status === 'Menunggu'; });
+    var tbody = document.getElementById('verif-tbody');
+    if (!pending.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:36px;">Tidak ada data yang menunggu verifikasi.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = pending.map(function(p) {
+      return '<tr>' +
+        '<td style="font-family:monospace;font-size:12px;">' + p.noReg + '</td>' +
+        '<td>' + p.nama + '</td>' +
+        '<td>' + p.program + '</td>' +
+        '<td>' + p.hp + '</td>' +
+        '<td>' + badgeStatus(p.status) + '</td>' +
+        '<td style="display:flex;gap:8px;flex-wrap:wrap;">' +
+          '<button class="btn btn-success" style="padding:5px 12px;font-size:12px;" onclick="verif(\'' + p.noReg + '\',\'Diterima\')"><i class="ti ti-check"></i> Terima</button>' +
+          '<button class="btn btn-danger"  style="padding:5px 12px;font-size:12px;" onclick="verif(\'' + p.noReg + '\',\'Ditolak\')"><i class="ti ti-x"></i> Tolak</button>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  function verif(noReg, status) {
+    var p = pesertaList.find(function(x){ return x.noReg === noReg; });
+    if (p) { p.status = status; updateStats(); renderTable(); renderVerifTable(); }
+  }
+
+  function hapus(noReg) {
+    if (!confirm('Hapus data pendaftar ' + noReg + '?')) return;
+    pesertaList = pesertaList.filter(function(p){ return p.noReg !== noReg; });
+    updateStats(); renderTable(); renderVerifTable();
+  }
+
+  function badgeStatus(s) {
+    if (s === 'Diterima') return '<span class="badge badge-green">Diterima</span>';
+    if (s === 'Ditolak')  return '<span class="badge badge-red">Ditolak</span>';
+    return '<span class="badge badge-yellow">Menunggu</span>';
+  }
+
+  // ─── FILTER ──────────────────────────────────────────────────────────
+  function filterTable() {
+    var q    = document.getElementById('search-input').value.toLowerCase();
+    var prog = document.getElementById('filter-program').value;
+    var stat = document.getElementById('filter-status').value;
+    var filtered = pesertaList.filter(function(p) {
+      return (!q    || p.nama.toLowerCase().includes(q) || p.nik.includes(q) || p.noReg.toLowerCase().includes(q))
+          && (!prog || p.program === prog)
+          && (!stat || p.status === stat);
+    });
+    renderTable(filtered);
+  }
+
+  // ─── REKAP & CETAK ───────────────────────────────────────────────────
+  function buildRekap() {
+    var el = document.getElementById('rekap-content');
+    if (!pesertaList.length) { el.innerHTML = '<p style="color:var(--text-muted);">Belum ada data pendaftar.</p>'; return; }
+    var progCount = {};
+    pesertaList.forEach(function(p){ progCount[p.program] = (progCount[p.program] || 0) + 1; });
+    var html = '<table style="width:100%; font-size:13px; border-collapse:collapse;">';
+    html += '<tr><th style="text-align:left;padding:8px;border-bottom:0.5px solid var(--border);">Program</th><th style="text-align:right;padding:8px;border-bottom:0.5px solid var(--border);">Jumlah</th></tr>';
+    Object.keys(progCount).forEach(function(k) {
+      html += '<tr><td style="padding:8px;">' + k + '</td><td style="text-align:right;padding:8px;font-weight:600;">' + progCount[k] + '</td></tr>';
+    });
+    html += '<tr style="background:var(--bg);"><td style="padding:8px;font-weight:600;">Total</td><td style="text-align:right;padding:8px;font-weight:700;color:var(--green-dark);">' + pesertaList.length + '</td></tr>';
+    html += '</table>';
+    el.innerHTML = html;
+  }
+
+  function cetakData() {
+    var w = window.open('', '_blank');
+    var rows = pesertaList.map(function(p, i) {
+      return '<tr><td>' + (i+1) + '</td><td>' + p.noReg + '</td><td>' + p.nama + '</td><td>' + p.jk + '</td><td>' + p.program + '</td><td>' + p.kecamatan + '</td><td>' + p.tgl + '</td><td>' + p.status + '</td></tr>';
+    }).join('');
+    w.document.write('<html><head><title>Daftar Peserta Didik — SKB Sengkang</title><style>body{font-family:Arial,sans-serif;font-size:12px;padding:20px;}table{width:100%;border-collapse:collapse;}th,td{border:1px solid #ccc;padding:6px 8px;}th{background:#1a4a2e;color:white;}h2{color:#1a4a2e;}</style></head><body><h2>UPTD SPNF SKB Sengkang Kabupaten Wajo</h2><p>Daftar Peserta Didik Terdaftar — Dicetak: ' + new Date().toLocaleDateString('id-ID') + '</p><table><thead><tr><th>No</th><th>No. Reg.</th><th>Nama</th><th>JK</th><th>Program</th><th>Kecamatan</th><th>Tgl. Daftar</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table></body></html>');
+    w.print();
+  }
+
+  function eksporCSV() {
+    if (!pesertaList.length) { alert('Belum ada data untuk diekspor.'); return; }
+    var header = ['No. Reg.','Nama','JK','NIK','Program','Kecamatan','No. HP','Orang Tua/Wali','Pendidikan Terakhir','Tgl. Daftar','Status'];
+    var rows = pesertaList.map(function(p) {
+      return [p.noReg, p.nama, p.jk, p.nik, p.program, p.kecamatan, p.hp, p.ortu, p.pendidikan, p.tgl, p.status].map(function(v){ return '"' + (v||'') + '"'; }).join(',');
+    });
+    var csv = '\uFEFF' + header.join(',') + '\n' + rows.join('\n');
+    var a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'peserta_didik_skb_sengkang.csv';
+    a.click();
+  }
+</script>
+</body>
+</html>
