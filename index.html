@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pendaftaran Peserta Didik — UPTD SPNF SKB Sengkang</title>
+  <title>Website UPTD SPNF SKB Sengkang</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -315,7 +315,7 @@
 <div class="nav">
   <div class="nav-inner">
     <button class="nav-tab active" id="tab-dashboard" onclick="showPage('dashboard')">
-      <i class="ti ti-layout-dashboard"></i> Beranda
+      <i class="ti ti-book"></i> Sejarah
     </button>
     <button class="nav-tab" id="tab-daftar" onclick="showPage('daftar')">
       <i class="ti ti-user-plus"></i> Pendaftaran Baru
@@ -324,7 +324,7 @@
       <i class="ti ti-map-pin"></i> SIG ATS
     </button>
     <button class="nav-tab" id="tab-verifikasi" onclick="showPage('verifikasi')">
-      <i class="ti ti-clipboard-check"></i> Verifikasi
+      <i class="ti ti-award"></i> Pengumuman Kelulusan
     </button>
     <button class="nav-tab" id="tab-cetak" onclick="showPage('cetak')">
       <i class="ti ti-printer"></i> Cetak / Laporan
@@ -335,82 +335,254 @@
 <!-- CONTENT -->
 <div class="content">
 
-  <!-- ══ BERANDA ══ -->
+  <!-- ══ SEJARAH ══ -->
   <div class="page active" id="page-dashboard">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">Total Pendaftar</div>
-        <div class="stat-value" id="stat-total">0</div>
-        <div class="stat-sub">T.A. 2025/2026</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Diterima</div>
-        <div class="stat-value" id="stat-diterima" style="color:#065f46;">0</div>
-        <div class="stat-sub">Terverifikasi</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Menunggu</div>
-        <div class="stat-value" id="stat-pending" style="color:#92400e;">0</div>
-        <div class="stat-sub">Diproses</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Ditolak</div>
-        <div class="stat-value" id="stat-ditolak" style="color:#991b1b;">0</div>
-        <div class="stat-sub">Tidak lolos</div>
+
+    <style>
+      .sejarah-hero {
+        background: linear-gradient(135deg, var(--green-dark) 0%, #2d6a4f 100%);
+        color: #fff;
+        border-radius: var(--radius-lg);
+        padding: 28px 30px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .sejarah-hero-icon {
+        font-size: 48px;
+        flex-shrink: 0;
+        opacity: 0.9;
+      }
+      .sejarah-hero h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .sejarah-hero p {
+        font-size: 13px;
+        opacity: 0.8;
+        line-height: 1.6;
+      }
+      .timeline {
+        position: relative;
+        padding-left: 36px;
+      }
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 14px;
+        top: 6px;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--green-mid), var(--green-border));
+        border-radius: 2px;
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 24px;
+      }
+      .timeline-item:last-child { margin-bottom: 0; }
+      .timeline-dot {
+        position: absolute;
+        left: -29px;
+        top: 4px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--green-mid);
+        border: 2px solid var(--card-bg);
+        box-shadow: 0 0 0 2px var(--green-mid);
+        flex-shrink: 0;
+      }
+      .timeline-year {
+        display: inline-block;
+        background: var(--green-dark);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 10px;
+        border-radius: 20px;
+        margin-bottom: 7px;
+        letter-spacing: 0.04em;
+      }
+      .timeline-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 7px;
+      }
+      .timeline-body {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.75;
+        text-align: justify;
+      }
+      .fungsi-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .fungsi-list li {
+        background: var(--green-light);
+        border: 0.5px solid var(--green-border);
+        border-radius: var(--radius);
+        padding: 8px 12px;
+        font-size: 12px;
+        color: #065f46;
+        display: flex;
+        align-items: flex-start;
+        gap: 7px;
+        line-height: 1.5;
+      }
+      .fungsi-list li::before {
+        content: '✦';
+        color: var(--green-mid);
+        flex-shrink: 0;
+        margin-top: 1px;
+        font-size: 10px;
+      }
+      @media (max-width: 640px) {
+        .fungsi-list { grid-template-columns: 1fr; }
+        .sejarah-hero { flex-direction: column; text-align: center; }
+      }
+    </style>
+
+    <!-- Hero -->
+    <div class="sejarah-hero">
+      <div class="sejarah-hero-icon">🏛️</div>
+      <div>
+        <h2>Sejarah Perkembangan Sanggar Kegiatan Belajar</h2>
+        <p>Naskah Akademik SKB dalam Rancangan Peraturan Pemerintah Pengelolaan dan Penyelenggaraan Pendidikan — Landasan Historis</p>
       </div>
     </div>
 
+    <!-- Timeline Sejarah -->
     <div class="card">
-      <div class="card-title"><i class="ti ti-info-circle"></i> Poster Pendaftaran</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px;">
-        <div>
-          <img src="Spmb.jpg" alt="Deskripsi Gambar" width="800" height="1200">
-          <p style="font-weight:600; margin-bottom:8px;">Periode Pendaftaran 2024/2025</p>
-          <p style="color:var(--text-muted);">Gelombang I &nbsp;: 1 Juli — 31 Juli 2025</p>
-          <p style="color:var(--text-muted);">Gelombang II : 1 Agustus — 31 Agustus 2025</p>
-          <br>
-          <p style="font-weight:600; margin-bottom:8px;">Kontak SKB Sengkang</p>
-          <p style="color:var(--text-muted);"><i class="ti ti-phone" style="font-size:14px;vertical-align:-2px;"></i> (0485) 21xxx</p>
-          <p style="color:var(--text-muted);"><i class="ti ti-map-pin" style="font-size:14px;vertical-align:-2px;"></i> Jl. Ahmad Yani, Sengkang, Wajo</p>
-          <p style="color:var(--text-muted);"><i class="ti ti-clock" style="font-size:14px;vertical-align:-2px;"></i> Senin–Jumat, 08.00–15.00 WITA</p>
+      <div class="card-title"><i class="ti ti-timeline"></i> Tonggak Sejarah SKB</div>
+      <div class="timeline">
+
+        <!-- 1978 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1978</div>
+          <div class="timeline-title">Pendirian SKB — SK Mendikbud No. 0206/O/1978</div>
+          <div class="timeline-body">
+            Sejarah perkembangan Sanggar Kegiatan Belajar (SKB) diawali dengan Surat Keputusan Kementerian Pendidikan dan Kebudayaan Nomor 0206/O/1978 tentang Susunan Organisasi dan Tata Kerja SKB. Keputusan tersebut menjelaskan bahwa SKB adalah Unit Pelaksana Teknis Kegiatan Belajar Luar Sekolah dan Olahraga di lingkungan Departemen Pendidikan dan Kebudayaan yang berada di bawah dan bertanggung jawab langsung kepada Kepala Kantor Wilayah Departemen Pendidikan dan Kebudayaan. Tugas SKB adalah melaksanakan program kegiatan belajar luar sekolah dan instruktur olahraga. Sedangkan SKB mempunyai fungsi: melaksanakan program kegiatan belajar di luar sekolah dan olahraga, menyediakan sarana kegiatan belajar bagi kelompok belajar dan instruktur, dan melaksanakan urusan rumah tangga sanggar. Susunan organisasi SKB terdiri atas: Urusan Tata Usaha, Sub Seksi Pelaksanaan Program, dan Sub Seksi Sarana Kegiatan Belajar.
+          </div>
+        </div>
+
+        <!-- 1989 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1989</div>
+          <div class="timeline-title">Empat Perubahan Penting — SK Mendikbud No. 036/0/1989</div>
+          <div class="timeline-body">
+            Terbitnya Surat Keputusan Menteri Pendidikan dan Kebudayaan Republik Indonesia Nomor 036/0/1989 tanggal 20 Januari 1989 telah membawa empat perubahan yang sangat berarti bagi SKB, berkaitan dengan tugas dan fungsi SKB, susunan organisasinya, fungsi tenaga kependidikan SKB, dan lingkup wilayah kerjanya.
+            <br><br>
+            Perubahan pertama berkaitan dengan tugas dan fungsi SKB, yang sebelumnya terbatas pada melatih tenaga kependidikan dari masyarakat, tetapi juga menyelenggarakan pelaksanaan pendidikan luar sekolah, pemuda dan olahraga dalam masyarakat. Perubahan kedua berkaitan dengan susunan dan organisasi SKB: yang semula terdiri atas Kepala–Kepala Urusan Tata Usaha–Sub Seksi Penyusunan dan Pelaksanaan Program–Sub Seksi Sarana Kegiatan Belajar, sekarang terdiri atas Kepala–Kepala Tata Usaha–Kelompok Tenaga Fungsional. Perubahan ketiga yaitu berkenaan dengan fungsi tenaga kependidikan pada SKB, yang sebelumnya lebih merupakan tenaga administrati, tetapi sekarang menjadi tenaga kependidikan fungsional. Perubahan keempat berkaitan dengan lingkup wilayah kerja, yang semula terpusat dalam kantor SKB dan pada wilayah kecamatan tempat SKB berlokasi, tetapi sekarang juga melayani kegiatan untuk masyarakat yang mencakup wilayah Kabupaten/Kota.
+          </div>
+        </div>
+
+        <!-- 1997–1998 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1997 – 1998</div>
+          <div class="timeline-title">SKB sebagai UPTD Pendidikan — SK Mendikbud No. 023/O/1997 & No. 039/0/1998</div>
+          <div class="timeline-body">
+            SKB dalam SK Mendikbud RI Nomor 039/0/1998 tanggal 23 Februari 1998 tentang Pembentukan dua puluh satu (21) SKB di Daerah Tingkat II membawa perubahan di mana SKB memiliki kedudukan sebagai UPTD Pendidikan dengan nama UPTD Sanggar Kegiatan Belajar (SKB) Kabupaten/Kota. Namun dengan terbitnya Surat Keputusan Mendikbud Nomor 023/O/1997 mendudukkan SKB sebagai lembaga pemerintah yang dibentuk berdasarkan Surat Keputusan Bupati/Walikota.
+            <br><br>
+            Berdasarkan SK Mendikbud Nomor 023/0/1997 tanggal 20 Februari 1997, tugas utama SKB adalah sebagai pembuatan percontohan dan pengendalian mutu pelaksanaan program pendidikan luar sekolah, pemuda dan olahraga berdasarkan kebijaksanaan teknis Direktorat Jenderal Pendidikan Luar Sekolah, Pemuda dan Olahraga di tingkat Kabupaten/Kotamadya.
+            <br><br>
+            Pendidikan Luar Sekolah sebagai sub sistem dari Pendidikan Nasional mempunyai peranan yang setara dengan pendidikan sekolah dalam rangka mencerdaskan kehidupan bangsa. SKB hampir tersebar di seluruh kabupaten/kota pada 26 provinsi di Indonesia dengan jumlah kurang lebih 260 SKB.
+          </div>
+        </div>
+
+        <!-- 2015–2016 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2015 – 2016</div>
+          <div class="timeline-title">Alih Fungsi SKB menjadi Satuan PNF — Permendikbud No. 4 Tahun 2016</div>
+          <div class="timeline-body">
+            Surat Edaran Direktur Jenderal Pendidikan Anak Usia Dini dan Pendidikan Masyarakat nomor 1085/C.C4.1/PR/2015 tanggal 3 Juli 2015 membawa perubahan terhadap Status UPTD SKB menjadi Satuan Pendidikan Nonformal Sejenis.
+            <br><br>
+            Perubahan status SKB dipertegas dengan terbitnya Permendikbud No. 4 Tahun 2016 tentang Pedoman Alih Fungsi SKB menjadi Satuan PNF. Permendikbud tersebut menjelaskan bahwa Sanggar Kegiatan Belajar atau sebutan lainnya merupakan Unit Pelaksana Teknis Daerah Kabupaten/Kota. Pemerintah Kabupaten/Kota dapat mengalihfungsikan SKB menjadi Satuan PNF berdasarkan usulan Kepala Dinas Pendidikan. Alih fungsi SKB menjadi Satuan PNF dilakukan sebagai berikut:
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mekanisme Alih Fungsi -->
+    <div class="card">
+      <div class="card-title"><i class="ti ti-arrows-exchange"></i> Mekanisme Alih Fungsi SKB menjadi Satuan PNF</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <div class="prog-info-card">
+          <div class="pn" style="color:var(--green-dark);">a. Nomenklatur</div>
+          <div class="pd">SKB tetap digunakan sebagai nomenklatur satuan PNF yang diselenggarakan oleh Pemerintah Kabupaten/Kota.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn" style="color:var(--green-dark);">b. Tugas Kelembagaan</div>
+          <div class="pd">Tugas SKB sebagai UPTD diubah menjadi tugas Satuan PNF.</div>
+        </div>
+        <div class="prog-info-card">
+          <div class="pn" style="color:var(--green-dark);">c. Jabatan Kepala SKB</div>
+          <div class="pd">Kepala SKB sebagai jabatan struktural UPTD diubah menjadi jabatan fungsional Pamong Belajar yang diberi tugas tambahan Kepala Satuan PNF alih fungsi dari SKB.</div>
         </div>
       </div>
     </div>
 
+    <!-- Fungsi SKB -->
     <div class="card">
-      <div class="card-title"><i class="ti ti-school"></i> Program Pendidikan Tersedia</div>
-      <div class="prog-info-grid">
-        <div class="prog-info-card">
-          <div class="pn">Paket A (Setara SD)</div>
-          <div class="pd">Usia 15+ yang belum tamat SD/MI. Durasi 3–6 semester.</div>
+      <div class="card-title"><i class="ti ti-list-check"></i> Fungsi SKB — Perdirjen PAUD-Dikmas No. 1453 Tahun 2016</div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
+        Fungsi SKB dijabarkan melalui Peraturan Dirjen PAUD-Dikmas Nomor 1453 tahun 2016 tentang Petunjuk Teknis Satuan Pendidikan Nonformal SKB, yaitu:
+      </p>
+      <ul class="fungsi-list">
+        <li>Pembentuk kelompok belajar</li>
+        <li>Penyelenggara pembelajaran program PAUD-Dikmas</li>
+        <li>Pembimbing program PAUD dan Dikmas</li>
+        <li>Pengembang kurikulum, bahan ajar, dan media pembelajaran</li>
+        <li>Penyelenggara evaluasi pembelajaran program PAUD-Dikmas</li>
+        <li>Penyelenggara program percontohan</li>
+        <li>Penyelenggara desa binaan</li>
+        <li>Pelaksana pengabdian masyarakat</li>
+        <li>Pelaksana hubungan kerjasama dengan orang tua peserta didik</li>
+        <li>Pelaksana administrasi SKB</li>
+      </ul>
+    </div>
+
+    <!-- Implikasi Pengembangan -->
+    <div class="card">
+      <div class="card-title"><i class="ti ti-bulb"></i> Implikasi Pengembangan SKB</div>
+      <div class="timeline" style="margin-top:4px;">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Implikasi Pertama — Jangkauan Wilayah</div>
+          <div class="timeline-body">Program yang dilaksanakan SKB harus mampu menjangkau semua daerah yang ada di Kabupaten/Kota tersebut. Namun karena adanya keterbatasan tenaga yang ada di SKB, harus menentukan prioritas daerah yang akan dilayani untuk menjadi program percontohan.</div>
         </div>
-        <div class="prog-info-card">
-          <div class="pn">Paket B (Setara SMP)</div>
-          <div class="pd">Lulusan SD/MI atau sederajat. Durasi 3–6 semester.</div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Implikasi Kedua — Diversifikasi Program</div>
+          <div class="timeline-body">Dengan semakin luasnya jumlah kelompok sasaran yang harus dilayani, maka perlu ditingkatkan diversifikasi program yang akan ditumbuhkan oleh SKB, guna memenuhi kelompok sasaran. Keadaan semacam ini terus akan memerlukan keberadaan dan keahlian tenaga fungsional Pamong Belajar dan tenaga fungsional lainnya yang ada di SKB.</div>
         </div>
-        <div class="prog-info-card">
-          <div class="pn">Paket C (Setara SMA)</div>
-          <div class="pd">Lulusan SMP/MTs atau sederajat. Durasi 3–6 semester.</div>
-        </div>
-        <div class="prog-info-card">
-          <div class="pn">Kursus Menjahit</div>
-          <div class="pd">Keterampilan tata busana & konveksi. Durasi 3–6 bulan.</div>
-        </div>
-        <div class="prog-info-card">
-          <div class="pn">Kursus Komputer</div>
-          <div class="pd">Operasional komputer & internet dasar. Durasi 2–3 bulan.</div>
-        </div>
-        <div class="prog-info-card">
-          <div class="pn">Pendidikan Keaksaraan</div>
-          <div class="pd">Baca, tulis, hitung (Calistung) bagi masyarakat.</div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Implikasi Ketiga — Pelayanan Sistematis</div>
+          <div class="timeline-body">Dengan makin meluasnya daerah kerja SKB di satu pihak, dan adanya keterbatasan SKB di pihak lain, maka pelayanannya yang dilaksanakan oleh SKB di daerah kerjanya dapat dilakukan secara sistematik yang dilakukan secara bergilir dari satu daerah ke daerah lain. Untuk memperkuat kapasitas dan kapabilitas SKB sebagai satuan pendidikan, perlu upaya mendorong SKB untuk menjadi lembaga percontohan dan pusat layanan pendidikan nonformal.</div>
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- ══ PENDAFTARAN BARU ══ -->
   <div class="page" id="page-daftar">
-        <div class="stats-grid">
+      <!--  <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Pendaftar</div>
         <div class="stat-value" id="stat-total">0</div>
@@ -431,7 +603,7 @@
         <div class="stat-value" id="stat-ditolak" style="color:#991b1b;">0</div>
         <div class="stat-sub">Tidak lolos</div>
       </div>
-    </div>
+    </div> -->
 
     <div class="card">
       <div class="card-title"><i class="ti ti-info-circle"></i> Poster Pendaftaran</div>
@@ -1351,26 +1523,146 @@ function toggleSidebar() {
   <!-- ══ VERIFIKASI ══ -->
   <div class="page" id="page-verifikasi">
     <div class="section-header">
-      <h3>Verifikasi Berkas Pendaftar</h3>
+      <h3><i class="ti ti-award" style="color:var(--gold);"></i> Pengumuman Kelulusan Peserta Didik</h3>
     </div>
-    <div class="info-box"><i class="ti ti-shield-check"></i> Halaman ini digunakan petugas SKB untuk memverifikasi berkas fisik peserta. Pastikan berkas asli sudah diterima sebelum mengubah status.</div>
-    <div class="card" style="padding:0; overflow:hidden;">
-      <div class="table-wrap">
-        <table>
+
+    <!-- Info banner -->
+    <div class="info-box" style="background:#fefce8; border-color:#fbbf24; color:#92400e; margin-bottom:16px;">
+      <i class="ti ti-info-circle"></i>
+      <strong>Pengumuman Resmi</strong> — Penetapan Kelulusan Peserta Didik Program Kesetaraan Paket C
+      UPTD SPNF SKB Kabupaten Wajo Tahun Ajaran 2025/2026.
+      Nomor SK: <strong>400.3.3/20/SPNF SKB</strong> | Ditetapkan: <strong>4 Mei 2026</strong>
+    </div>
+
+    <!-- Rekapitulasi ringkas -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-chart-bar"></i> Rekapitulasi Kelulusan</div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-top:12px;">
+        <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:14px; text-align:center;">
+          <div style="font-size:28px; font-weight:700; color:#166534;">174</div>
+          <div style="font-size:11px; color:#166534; margin-top:2px;">Total Peserta</div>
+        </div>
+        <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:14px; text-align:center;">
+          <div style="font-size:28px; font-weight:700; color:#15803d;">149</div>
+          <div style="font-size:11px; color:#15803d; margin-top:2px;">Dinyatakan Lulus</div>
+        </div>
+        <div style="background:#fef2f2; border:1px solid #fca5a5; border-radius:8px; padding:14px; text-align:center;">
+          <div style="font-size:28px; font-weight:700; color:#991b1b;">25</div>
+          <div style="font-size:11px; color:#991b1b; margin-top:2px;">Tidak Lulus</div>
+        </div>
+        <div style="background:#fffbeb; border:1px solid #fcd34d; border-radius:8px; padding:14px; text-align:center;">
+          <div style="font-size:28px; font-weight:700; color:#92400e;">85.6%</div>
+          <div style="font-size:11px; color:#92400e; margin-top:2px;">Persentase Lulus</div>
+        </div>
+      </div>
+      <!-- Per kelompok -->
+      <div style="margin-top:14px; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
           <thead>
-            <tr>
-              <th>No. Reg.</th>
-              <th>Nama Peserta</th>
-              <th>Program</th>
-              <th>No. HP</th>
-              <th>Status</th>
-              <th>Aksi Verifikasi</th>
+            <tr style="background:var(--green-dark); color:#fff;">
+              <th style="padding:8px 12px; text-align:left;">Kelompok Belajar</th>
+              <th style="padding:8px 12px; text-align:center;">Jumlah Peserta</th>
+              <th style="padding:8px 12px; text-align:center;">Lulus</th>
+              <th style="padding:8px 12px; text-align:center;">Tidak Lulus</th>
             </tr>
           </thead>
-          <tbody id="verif-tbody">
-            <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:36px;">Tidak ada data yang menunggu verifikasi.</td></tr>
+          <tbody>
+            <tr style="border-bottom:1px solid #e5e7eb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 SKB 1</td>
+              <td style="padding:7px 12px; text-align:center;">28</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">24</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">4</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e5e7eb; background:#f9fafb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 SKB 2</td>
+              <td style="padding:7px 12px; text-align:center;">29</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">22</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">7</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e5e7eb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 SKB 3</td>
+              <td style="padding:7px 12px; text-align:center;">30</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">26</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">4</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e5e7eb; background:#f9fafb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 SKB 4</td>
+              <td style="padding:7px 12px; text-align:center;">21</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">21</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">0</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e5e7eb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 Sengkang</td>
+              <td style="padding:7px 12px; text-align:center;">13</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">11</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">2</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e5e7eb; background:#f9fafb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 Gilireng</td>
+              <td style="padding:7px 12px; text-align:center;">29</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">25</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">4</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e5e7eb;">
+              <td style="padding:7px 12px;">Paket C Kls 12 Nurul Ilmi</td>
+              <td style="padding:7px 12px; text-align:center;">24</td>
+              <td style="padding:7px 12px; text-align:center; color:#15803d; font-weight:600;">20</td>
+              <td style="padding:7px 12px; text-align:center; color:#991b1b;">4</td>
+            </tr>
+            <tr style="background:#f0fdf4; font-weight:700;">
+              <td style="padding:8px 12px;">TOTAL</td>
+              <td style="padding:8px 12px; text-align:center;">174</td>
+              <td style="padding:8px 12px; text-align:center; color:#15803d;">149</td>
+              <td style="padding:8px 12px; text-align:center; color:#991b1b;">25</td>
+            </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Cari nama -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title"><i class="ti ti-search"></i> Cari Nama Peserta</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:center;">
+        <input type="text" id="cari-nama" placeholder="Ketik nama peserta didik..." oninput="cariKelulusan()"
+          style="flex:1; min-width:200px; padding:9px 12px; border:1px solid var(--border-strong);
+                 border-radius:8px; font-size:13px; outline:none;">
+        <select id="filter-kelompok" onchange="cariKelulusan()"
+          style="padding:9px 12px; border:1px solid var(--border-strong); border-radius:8px; font-size:13px;">
+          <option value="">Semua Kelompok</option>
+          <option value="SKB 1">SKB 1</option>
+          <option value="SKB 2">SKB 2</option>
+          <option value="SKB 3">SKB 3</option>
+          <option value="SKB 4">SKB 4</option>
+          <option value="Sengkang">Sengkang</option>
+          <option value="Gilireng">Gilireng</option>
+          <option value="Nurul Ilmi">Nurul Ilmi</option>
+        </select>
+        <select id="filter-status" onchange="cariKelulusan()"
+          style="padding:9px 12px; border:1px solid var(--border-strong); border-radius:8px; font-size:13px;">
+          <option value="">Semua Status</option>
+          <option value="LULUS">Lulus</option>
+          <option value="TIDAK LULUS">Tidak Lulus</option>
+        </select>
+      </div>
+      <div style="margin-top:12px; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="background:var(--green-dark); color:#fff;">
+              <th style="padding:8px 10px; text-align:center;">No.</th>
+              <th style="padding:8px 10px; text-align:left;">Nama Peserta Didik</th>
+              <th style="padding:8px 10px; text-align:center;">NISN</th>
+              <th style="padding:8px 10px; text-align:center;">Tgl Lahir</th>
+              <th style="padding:8px 10px; text-align:center;">Kelompok</th>
+              <th style="padding:8px 10px; text-align:center;">Kelulusan</th>
+            </tr>
+          </thead>
+          <tbody id="tbl-kelulusan">
+          </tbody>
+        </table>
+        <div id="kelulusan-empty" style="display:none; text-align:center; padding:30px; color:var(--text-muted); font-size:13px;">
+          Tidak ada data yang cocok dengan pencarian.
+        </div>
       </div>
     </div>
   </div>
@@ -1671,6 +1963,234 @@ function toggleSidebar() {
     w.print();
   }
 
+  // ═══════════════════════════════════════════════════════════════════
+  // DATA & FUNGSI PENGUMUMAN KELULUSAN
+  // ═══════════════════════════════════════════════════════════════════
+  var dataKelulusan = [
+    {no:1,  nama:'AISIAH',                        nisn:'0046789118', tgl:'2004-03-22', kelompok:'SKB 1',      status:'LULUS'},
+    {no:2,  nama:'ANDI EFALDI',                   nisn:'0010049012', tgl:'2001-08-14', kelompok:'SKB 1',      status:'LULUS'},
+    {no:3,  nama:'ANUGRAH BAYU',                  nisn:'3984337546', tgl:'1998-03-15', kelompok:'SKB 1',      status:'LULUS'},
+    {no:4,  nama:'DAENG SIRAJA MOCHTAR',          nisn:'3577670838', tgl:'1957-04-10', kelompok:'SKB 1',      status:'LULUS'},
+    {no:5,  nama:'FADIAH AZZAHRA ADNYANI',        nisn:'0071687961', tgl:'2007-02-24', kelompok:'SKB 1',      status:'LULUS'},
+    {no:6,  nama:'HAFSAH',                        nisn:'3917439196', tgl:'1991-07-20', kelompok:'SKB 1',      status:'LULUS'},
+    {no:7,  nama:'HARTINAH',                      nisn:'-',          tgl:'1981-07-19', kelompok:'SKB 1',      status:'TIDAK LULUS'},
+    {no:8,  nama:'IRFAN',                         nisn:'0009704872', tgl:'2000-08-10', kelompok:'SKB 1',      status:'LULUS'},
+    {no:9,  nama:'JULIA NUR HIDAYANTI',           nisn:'0068644017', tgl:'2006-07-11', kelompok:'SKB 1',      status:'LULUS'},
+    {no:10, nama:'M AJENG',                       nisn:'3743616127', tgl:'1974-12-31', kelompok:'SKB 1',      status:'LULUS'},
+    {no:11, nama:'MARHANA',                       nisn:'3729070116', tgl:'1972-12-31', kelompok:'SKB 1',      status:'LULUS'},
+    {no:12, nama:'MUFTI HATUL KHAERIL',           nisn:'0074082722', tgl:'2007-02-03', kelompok:'SKB 1',      status:'LULUS'},
+    {no:13, nama:'MUH REZA',                      nisn:'3072183812', tgl:'2007-01-02', kelompok:'SKB 1',      status:'LULUS'},
+    {no:14, nama:'MUH SAEFUL',                    nisn:'0051604687', tgl:'2005-11-25', kelompok:'SKB 1',      status:'LULUS'},
+    {no:15, nama:'MUH. AKSAR JAYA',               nisn:'3077103311', tgl:'2007-05-15', kelompok:'SKB 1',      status:'LULUS'},
+    {no:16, nama:'MUH. IKRAM',                    nisn:'0023999123', tgl:'2002-01-22', kelompok:'SKB 1',      status:'LULUS'},
+    {no:17, nama:'Muh. REVALDI',                  nisn:'0062784446', tgl:'2006-12-11', kelompok:'SKB 1',      status:'LULUS'},
+    {no:18, nama:'MUHAMMAD JABIR',                nisn:'3746765559', tgl:'1974-12-31', kelompok:'SKB 1',      status:'LULUS'},
+    {no:19, nama:'MUHAMMAD SAID',                 nisn:'3770286700', tgl:'1977-12-31', kelompok:'SKB 1',      status:'TIDAK LULUS'},
+    {no:20, nama:'RAFIKA RAMADHANI',              nisn:'0053851415', tgl:'2005-10-01', kelompok:'SKB 1',      status:'TIDAK LULUS'},
+    {no:21, nama:'RAHMAT',                        nisn:'0063809997', tgl:'2006-11-16', kelompok:'SKB 1',      status:'LULUS'},
+    {no:22, nama:'RASTI ALVIONITA',               nisn:'0088525963', tgl:'2008-11-02', kelompok:'SKB 1',      status:'LULUS'},
+    {no:23, nama:'RISMA SALAM',                   nisn:'3032025472', tgl:'2003-01-28', kelompok:'SKB 1',      status:'LULUS'},
+    {no:24, nama:'SARINA',                        nisn:'3953192939', tgl:'1995-08-14', kelompok:'SKB 1',      status:'LULUS'},
+    {no:25, nama:'SUCI RAMADANI',                 nisn:'0051466600', tgl:'2005-05-25', kelompok:'SKB 1',      status:'LULUS'},
+    {no:26, nama:'TRIJAYA PUTRA KENCANA',         nisn:'0023528652', tgl:'2002-02-01', kelompok:'SKB 1',      status:'LULUS'},
+    {no:27, nama:'VAIVA SARI',                    nisn:'3006142115', tgl:'2000-05-05', kelompok:'SKB 1',      status:'TIDAK LULUS'},
+    {no:28, nama:'WAHYUNI',                       nisn:'3949756304', tgl:'1994-01-11', kelompok:'SKB 1',      status:'LULUS'},
+    {no:29, nama:'A. FITRAH RAMADAN',             nisn:'0077251893', tgl:'2007-09-24', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:30, nama:'AGUS SALIM',                    nisn:'0032277022', tgl:'2003-08-19', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:31, nama:'AGUSTINA',                      nisn:'0029082967', tgl:'2002-02-08', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:32, nama:'AHMAD FAREL',                   nisn:'0078540852', tgl:'2007-06-15', kelompok:'SKB 2',      status:'LULUS'},
+    {no:33, nama:'AMIRUDDIN',                     nisn:'-',          tgl:'1992-08-14', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:34, nama:'ANDI ARDIAN MAULANA. A.AS',     nisn:'0083415063', tgl:'2008-02-27', kelompok:'SKB 2',      status:'LULUS'},
+    {no:35, nama:'ARYA ROSANDA',                  nisn:'0076574231', tgl:'2007-02-27', kelompok:'SKB 2',      status:'LULUS'},
+    {no:36, nama:'BESSE KASWATI',                 nisn:'9992212243', tgl:'1999-02-04', kelompok:'SKB 2',      status:'LULUS'},
+    {no:37, nama:'BURHANUDDIN',                   nisn:'0034124942', tgl:'2003-11-12', kelompok:'SKB 2',      status:'LULUS'},
+    {no:38, nama:'HASNIDAR',                      nisn:'0038930587', tgl:'2003-08-20', kelompok:'SKB 2',      status:'LULUS'},
+    {no:39, nama:'Jihan',                         nisn:'0089005881', tgl:'2008-10-30', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:40, nama:'M AKBAR (asal Sengkang)',       nisn:'0063414535', tgl:'2007-05-16', kelompok:'SKB 2',      status:'LULUS'},
+    {no:41, nama:'M. AFDAL',                      nisn:'0069431002', tgl:'2007-05-16', kelompok:'SKB 2',      status:'LULUS'},
+    {no:42, nama:'MASDIHAN',                      nisn:'9995981914', tgl:'1999-06-30', kelompok:'SKB 2',      status:'LULUS'},
+    {no:43, nama:'MUH ASLAM NABIL',              nisn:'0056898598', tgl:'2006-04-29', kelompok:'SKB 2',      status:'LULUS'},
+    {no:44, nama:'MUH. IRSAL',                    nisn:'0009673774', tgl:'2000-10-31', kelompok:'SKB 2',      status:'LULUS'},
+    {no:45, nama:'MUH. RIZAL',                    nisn:'0044301048', tgl:'2004-04-10', kelompok:'SKB 2',      status:'LULUS'},
+    {no:46, nama:'MUHAMMAD ADITYA',               nisn:'0076471504', tgl:'2007-04-30', kelompok:'SKB 2',      status:'LULUS'},
+    {no:47, nama:'MUHAMMAD ARAFAH',               nisn:'0078165764', tgl:'2007-07-13', kelompok:'SKB 2',      status:'LULUS'},
+    {no:48, nama:'MUHAMMAD ASHAR ARAS',           nisn:'9932378158', tgl:'1993-11-11', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:49, nama:'RAFLI ARDIANSYAH',              nisn:'0074455702', tgl:'2007-09-17', kelompok:'SKB 2',      status:'LULUS'},
+    {no:50, nama:'RINA WATI',                     nisn:'0071920858', tgl:'2007-01-19', kelompok:'SKB 2',      status:'LULUS'},
+    {no:51, nama:'RIVANA HAMSAH',                 nisn:'0052904033', tgl:'2005-06-12', kelompok:'SKB 2',      status:'LULUS'},
+    {no:52, nama:'SRI WAHYUNI',                   nisn:'3812326903', tgl:'1981-11-11', kelompok:'SKB 2',      status:'LULUS'},
+    {no:53, nama:'ST. RAHMAYANI',                 nisn:'-',          tgl:'1997-01-10', kelompok:'SKB 2',      status:'TIDAK LULUS'},
+    {no:54, nama:'SULKIFLI',                      nisn:'0051427233', tgl:'2005-09-10', kelompok:'SKB 2',      status:'LULUS'},
+    {no:55, nama:'VADIL JUNIAWAN SAPUTRA. B',     nisn:'0061341410', tgl:'2006-06-02', kelompok:'SKB 2',      status:'LULUS'},
+    {no:56, nama:'WAHYU SULFIKAR',                nisn:'0081924670', tgl:'2008-04-18', kelompok:'SKB 2',      status:'LULUS'},
+    {no:57, nama:'YUDIASMAN',                     nisn:'0042100355', tgl:'2004-08-12', kelompok:'SKB 2',      status:'LULUS'},
+    {no:58, nama:'A. NIM RAATUL MUKARRAMA',       nisn:'0065679384', tgl:'2006-02-10', kelompok:'SKB 3',      status:'LULUS'},
+    {no:59, nama:'Andi Endang Ramadani',          nisn:'9992690872', tgl:'1999-12-13', kelompok:'SKB 3',      status:'TIDAK LULUS'},
+    {no:60, nama:'ANDI IRMA SUNARYA',             nisn:'0001730039', tgl:'2000-03-16', kelompok:'SKB 3',      status:'LULUS'},
+    {no:61, nama:'Andi Nurhikmah',                nisn:'3892608377', tgl:'1989-12-20', kelompok:'SKB 3',      status:'LULUS'},
+    {no:62, nama:'Arisal',                        nisn:'3919952495', tgl:'1991-02-17', kelompok:'SKB 3',      status:'LULUS'},
+    {no:63, nama:'Arvan Maulana',                 nisn:'3955196962', tgl:'1995-05-25', kelompok:'SKB 3',      status:'LULUS'},
+    {no:64, nama:'Aswing Kusnadi',                nisn:'9932396054', tgl:'1993-07-29', kelompok:'SKB 3',      status:'LULUS'},
+    {no:65, nama:'Audit',                         nisn:'9993091199', tgl:'1998-08-21', kelompok:'SKB 3',      status:'LULUS'},
+    {no:66, nama:'AZWAR EKA PUTRA',               nisn:'0023365730', tgl:'2002-12-31', kelompok:'SKB 3',      status:'LULUS'},
+    {no:67, nama:'Baso Singke',                   nisn:'3722070492', tgl:'1972-05-09', kelompok:'SKB 3',      status:'LULUS'},
+    {no:68, nama:'BESSE WIRGAHAYU',               nisn:'0008997408', tgl:'2000-08-17', kelompok:'SKB 3',      status:'LULUS'},
+    {no:69, nama:'FITRI RAHMADANI',               nisn:'0079142063', tgl:'2007-10-04', kelompok:'SKB 3',      status:'LULUS'},
+    {no:70, nama:'HARTATI',                       nisn:'-',          tgl:'1998-06-18', kelompok:'SKB 3',      status:'TIDAK LULUS'},
+    {no:71, nama:'Indo Lebbi',                    nisn:'3797387296', tgl:'1979-04-14', kelompok:'SKB 3',      status:'LULUS'},
+    {no:72, nama:'Lilis Suganda',                 nisn:'0063833316', tgl:'2006-10-20', kelompok:'SKB 3',      status:'LULUS'},
+    {no:73, nama:'M. Zaqy Pandu Pratama Mulyani', nisn:'0066736269', tgl:'2006-12-10', kelompok:'SKB 3',      status:'LULUS'},
+    {no:74, nama:'Maryana',                       nisn:'3967715185', tgl:'1996-05-10', kelompok:'SKB 3',      status:'LULUS'},
+    {no:75, nama:'MERLY AGUSTINA',                nisn:'-',          tgl:'1991-09-29', kelompok:'SKB 3',      status:'TIDAK LULUS'},
+    {no:76, nama:'MUH. FARHAM RAMADAN',           nisn:'9996146163', tgl:'1999-12-31', kelompok:'SKB 3',      status:'TIDAK LULUS'},
+    {no:77, nama:'Muh. Fikran',                   nisn:'3937287673', tgl:'1993-08-09', kelompok:'SKB 3',      status:'LULUS'},
+    {no:78, nama:'MULIADI',                       nisn:'3834084633', tgl:'1983-08-01', kelompok:'SKB 3',      status:'LULUS'},
+    {no:79, nama:'NANDA RISKY PRATAMA',           nisn:'0082972905', tgl:'2008-06-05', kelompok:'SKB 3',      status:'LULUS'},
+    {no:80, nama:'NIA AUDINA PUTRI',              nisn:'0032087741', tgl:'1999-05-05', kelompok:'SKB 3',      status:'LULUS'},
+    {no:81, nama:'REVALDI',                       nisn:'0064624002', tgl:'2006-06-30', kelompok:'SKB 3',      status:'LULUS'},
+    {no:82, nama:'Ricky Virman Erlana',           nisn:'9994972337', tgl:'1999-07-18', kelompok:'SKB 3',      status:'LULUS'},
+    {no:83, nama:'RINA RAMLI',                    nisn:'3923977091', tgl:'1992-09-18', kelompok:'SKB 3',      status:'LULUS'},
+    {no:84, nama:'Semmaila',                      nisn:'3704691971', tgl:'1970-12-31', kelompok:'SKB 3',      status:'LULUS'},
+    {no:85, nama:'Sukardi',                       nisn:'3901383193', tgl:'1990-11-08', kelompok:'SKB 3',      status:'LULUS'},
+    {no:86, nama:'Syamriadi',                     nisn:'3819223414', tgl:'1981-02-05', kelompok:'SKB 3',      status:'LULUS'},
+    {no:87, nama:'Yulismayansih',                 nisn:'0016057348', tgl:'2001-11-09', kelompok:'SKB 3',      status:'LULUS'},
+    {no:88, nama:'A. Syahrani Ilma',              nisn:'0081927952', tgl:'2008-10-29', kelompok:'SKB 4',      status:'LULUS'},
+    {no:89, nama:'Ahmad Agil Fean Pratama',       nisn:'0062760773', tgl:'2006-06-23', kelompok:'SKB 4',      status:'LULUS'},
+    {no:90, nama:'Ambo Angka',                    nisn:'3949315630', tgl:'1994-11-13', kelompok:'SKB 4',      status:'LULUS'},
+    {no:91, nama:'ANDI ANGGA PRATAMA',            nisn:'0061692726', tgl:'2006-06-01', kelompok:'SKB 4',      status:'LULUS'},
+    {no:92, nama:'Armanda',                       nisn:'0029238113', tgl:'2002-02-21', kelompok:'SKB 4',      status:'LULUS'},
+    {no:93, nama:'Asriani Alprianti',             nisn:'0013249546', tgl:'2001-11-13', kelompok:'SKB 4',      status:'LULUS'},
+    {no:94, nama:'BASO ABDUL RAFIQ',              nisn:'3933871992', tgl:'1993-12-28', kelompok:'SKB 4',      status:'LULUS'},
+    {no:95, nama:'Fatma Hasan',                   nisn:'9972682324', tgl:'1997-08-16', kelompok:'SKB 4',      status:'LULUS'},
+    {no:96, nama:'Hariani',                       nisn:'3948123104', tgl:'1994-07-22', kelompok:'SKB 4',      status:'LULUS'},
+    {no:97, nama:'Irfan Kusuma Bakti',            nisn:'3954327479', tgl:'1995-04-14', kelompok:'SKB 4',      status:'LULUS'},
+    {no:98, nama:'Karnaini',                      nisn:'3926561348', tgl:'1992-05-25', kelompok:'SKB 4',      status:'LULUS'},
+    {no:99, nama:'LILI SURIANI',                  nisn:'3962770022', tgl:'1996-10-07', kelompok:'SKB 4',      status:'LULUS'},
+    {no:100,nama:'Melly Ladedu',                  nisn:'3884297209', tgl:'1988-10-13', kelompok:'SKB 4',      status:'LULUS'},
+    {no:101,nama:'Muh. Amiswar Saputera',         nisn:'0031007104', tgl:'2003-06-24', kelompok:'SKB 4',      status:'LULUS'},
+    {no:102,nama:'Muh. Arafa',                    nisn:'3876121802', tgl:'1987-12-31', kelompok:'SKB 4',      status:'LULUS'},
+    {no:103,nama:'Muhammad Alif',                 nisn:'0066934560', tgl:'2006-07-27', kelompok:'SKB 4',      status:'LULUS'},
+    {no:104,nama:'Nur Aisyah',                    nisn:'0001647579', tgl:'2000-06-16', kelompok:'SKB 4',      status:'LULUS'},
+    {no:105,nama:'Riska Rahayu',                  nisn:'0001704888', tgl:'2000-05-16', kelompok:'SKB 4',      status:'LULUS'},
+    {no:106,nama:'Sarman',                        nisn:'3938439822', tgl:'1993-10-31', kelompok:'SKB 4',      status:'LULUS'},
+    {no:107,nama:'SEBRI',                         nisn:'0083194095', tgl:'2008-09-20', kelompok:'SKB 4',      status:'LULUS'},
+    {no:108,nama:'Zuhermin',                      nisn:'0066662088', tgl:'2006-04-29', kelompok:'SKB 4',      status:'LULUS'},
+    {no:109,nama:'ABUSTANG',                      nisn:'3750919669', tgl:'1975-08-09', kelompok:'Sengkang',   status:'LULUS'},
+    {no:110,nama:'Alyaa Nazihah.F',               nisn:'0085401576', tgl:'2009-03-28', kelompok:'Sengkang',   status:'LULUS'},
+    {no:111,nama:'Anwar',                         nisn:'9922311996', tgl:'1992-01-25', kelompok:'Sengkang',   status:'LULUS'},
+    {no:112,nama:'BAIM SADARUDDIN',               nisn:'0041788013', tgl:'2004-11-17', kelompok:'Sengkang',   status:'LULUS'},
+    {no:113,nama:'Danil Hidayatullah HB',         nisn:'3779060181', tgl:'1977-11-05', kelompok:'Sengkang',   status:'LULUS'},
+    {no:114,nama:'Darmawangsyah',                 nisn:'3828348998', tgl:'1982-12-23', kelompok:'Sengkang',   status:'LULUS'},
+    {no:115,nama:'Ida Royani',                    nisn:'9997055511', tgl:'1999-12-06', kelompok:'Sengkang',   status:'LULUS'},
+    {no:116,nama:'MUH. NOUFAL ALKHIFARI',         nisn:'0031962134', tgl:'2003-10-10', kelompok:'Sengkang',   status:'LULUS'},
+    {no:117,nama:'NUR AZILLAH HARIANI',           nisn:'0071870638', tgl:'2007-02-13', kelompok:'Sengkang',   status:'LULUS'},
+    {no:118,nama:'Randi',                         nisn:'-',          tgl:'1987-11-08', kelompok:'Sengkang',   status:'TIDAK LULUS'},
+    {no:119,nama:'Safrillah. B',                  nisn:'0016011955', tgl:'2001-11-05', kelompok:'Sengkang',   status:'LULUS'},
+    {no:120,nama:'Susi Sulasmi',                  nisn:'-',          tgl:'1990-09-15', kelompok:'Sengkang',   status:'TIDAK LULUS'},
+    {no:121,nama:'Tasya Dwi Nurzakinah',          nisn:'0089424287', tgl:'2008-02-13', kelompok:'Sengkang',   status:'LULUS'},
+    {no:122,nama:'ADAM MALIK',                    nisn:'0042030419', tgl:'2004-11-23', kelompok:'Gilireng',   status:'LULUS'},
+    {no:123,nama:'AFRISAL',                       nisn:'2053163682', tgl:'2005-04-30', kelompok:'Gilireng',   status:'LULUS'},
+    {no:124,nama:'ANDI AIDIL REZKY ANTARI',       nisn:'0087352806', tgl:'2008-05-31', kelompok:'Gilireng',   status:'LULUS'},
+    {no:125,nama:'ANDINI SRI KARTINI',            nisn:'0012165232', tgl:'2001-12-14', kelompok:'Gilireng',   status:'LULUS'},
+    {no:126,nama:'ANGGA',                         nisn:'0066367727', tgl:'2006-05-31', kelompok:'Gilireng',   status:'LULUS'},
+    {no:127,nama:'ARSYAD',                        nisn:'0052327073', tgl:'2005-09-20', kelompok:'Gilireng',   status:'LULUS'},
+    {no:128,nama:'ASRIADI',                       nisn:'0055476147', tgl:'2005-01-01', kelompok:'Gilireng',   status:'LULUS'},
+    {no:129,nama:'BEBI SILFIA',                   nisn:'0013054679', tgl:'2001-05-16', kelompok:'Gilireng',   status:'TIDAK LULUS'},
+    {no:130,nama:'BUSTAN',                        nisn:'0055294624', tgl:'2007-07-01', kelompok:'Gilireng',   status:'LULUS'},
+    {no:131,nama:'DENI FIRDAUS',                  nisn:'2034650439', tgl:'2003-06-20', kelompok:'Gilireng',   status:'LULUS'},
+    {no:132,nama:'FADLI',                         nisn:'0063658329', tgl:'2006-05-02', kelompok:'Gilireng',   status:'LULUS'},
+    {no:133,nama:'FAHRIL ANUGRA',                 nisn:'2065305599', tgl:'2006-03-16', kelompok:'Gilireng',   status:'LULUS'},
+    {no:134,nama:'FAREL SETIAWAN',                nisn:'0083226371', tgl:'2008-03-04', kelompok:'Gilireng',   status:'LULUS'},
+    {no:135,nama:'FERDI (asal Paselloreng)',       nisn:'0042078906', tgl:'2004-10-10', kelompok:'Gilireng',   status:'LULUS'},
+    {no:136,nama:'FIRMAN',                        nisn:'9983038706', tgl:'1998-04-08', kelompok:'Gilireng',   status:'LULUS'},
+    {no:137,nama:'HIKMA RISKY AMALIA',            nisn:'0027006090', tgl:'2002-03-03', kelompok:'Gilireng',   status:'LULUS'},
+    {no:138,nama:'INDIRAKARTIKA PUTRI',           nisn:'9995189482', tgl:'1999-11-21', kelompok:'Gilireng',   status:'LULUS'},
+    {no:139,nama:'LIRA VIRNA',                    nisn:'0055292884', tgl:'2006-06-16', kelompok:'Gilireng',   status:'LULUS'},
+    {no:140,nama:'MUH AKBAR (asal Paselloreng)',  nisn:'0084139843', tgl:'2008-11-02', kelompok:'Gilireng',   status:'LULUS'},
+    {no:141,nama:'MUH. AKBAR (asal Bone)',        nisn:'2034942029', tgl:'2003-09-20', kelompok:'Gilireng',   status:'LULUS'},
+    {no:142,nama:'MUH. RISKA',                    nisn:'0033167340', tgl:'2003-12-15', kelompok:'Gilireng',   status:'LULUS'},
+    {no:143,nama:'Nur Asisah',                    nisn:'0077730457', tgl:'2007-01-16', kelompok:'Gilireng',   status:'TIDAK LULUS'},
+    {no:144,nama:'PAKKAWARU',                     nisn:'0083275463', tgl:'2008-07-19', kelompok:'Gilireng',   status:'LULUS'},
+    {no:145,nama:'PENDI',                         nisn:'0042030416', tgl:'2004-10-11', kelompok:'Gilireng',   status:'LULUS'},
+    {no:146,nama:'SELVIANA',                      nisn:'2981885486', tgl:'1998-12-31', kelompok:'Gilireng',   status:'LULUS'},
+    {no:147,nama:'SULVIANA',                      nisn:'2024889373', tgl:'2002-03-15', kelompok:'Gilireng',   status:'TIDAK LULUS'},
+    {no:148,nama:'SYAMSUL BAHRI',                 nisn:'0051972913', tgl:'2005-01-12', kelompok:'Gilireng',   status:'LULUS'},
+    {no:149,nama:'UMMAIROAH',                     nisn:'0041463330', tgl:'2004-12-22', kelompok:'Gilireng',   status:'TIDAK LULUS'},
+    {no:150,nama:'WISNU PRATAMA',                 nisn:'0082804975', tgl:'2008-07-27', kelompok:'Gilireng',   status:'LULUS'},
+    {no:151,nama:'ANDIKA',                        nisn:'0047247978', tgl:'2004-03-12', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:152,nama:'ARAS',                          nisn:'0023174358', tgl:'2002-10-27', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:153,nama:'ARMANSYAH',                     nisn:'0058403332', tgl:'2005-03-03', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:154,nama:'ASDAR',                         nisn:'0009062252', tgl:'2000-12-10', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:155,nama:'BESSE IBNU HAMRA',              nisn:'0071289482', tgl:'2007-07-28', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:156,nama:'BESSE RESKI AMELIA',            nisn:'0016106927', tgl:'2001-03-29', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:157,nama:'FERDI (asal Kading)',           nisn:'0057803047', tgl:'2005-03-17', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:158,nama:'GUSMALINDA',                    nisn:'2034597797', tgl:'2002-12-12', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:159,nama:'HASANUDDIN',                    nisn:'2834850876', tgl:'1984-07-01', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:160,nama:'HATIMAH',                       nisn:'0016210439', tgl:'2002-11-27', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:161,nama:'HUSMIANI',                      nisn:'0023174355', tgl:'2002-05-22', kelompok:'Nurul Ilmi', status:'TIDAK LULUS'},
+    {no:162,nama:'JUMARNI',                       nisn:'2951336164', tgl:'1995-10-20', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:163,nama:'JUMASTANG',                     nisn:'2906724118', tgl:'1991-07-01', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:164,nama:'JUSNANDA',                      nisn:'2981210107', tgl:'1999-03-12', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:165,nama:'MUH. ASRUL B',                  nisn:'0043432414', tgl:'2004-10-06', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:166,nama:'MUHAMMAD ALI',                  nisn:'2003280424', tgl:'2000-07-01', kelompok:'Nurul Ilmi', status:'TIDAK LULUS'},
+    {no:167,nama:'MUHAMMAD AMIRULLAH',            nisn:'2004347281', tgl:'2000-08-10', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:168,nama:'MUHAMMAD ASBARUDDIN',           nisn:'0023949422', tgl:'2002-10-09', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:169,nama:'MUHAMMAD RIZALDI',              nisn:'2972919558', tgl:'1997-09-29', kelompok:'Nurul Ilmi', status:'TIDAK LULUS'},
+    {no:170,nama:'NUR FITRI YANI',                nisn:'0039764331', tgl:'2003-05-29', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:171,nama:'NURJANNAH',                     nisn:'2925099872', tgl:'1992-04-23', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:172,nama:'SAHRIANI',                      nisn:'2853313669', tgl:'1985-10-28', kelompok:'Nurul Ilmi', status:'TIDAK LULUS'},
+    {no:173,nama:'SARMILA SARI',                  nisn:'0005061975', tgl:'2000-08-04', kelompok:'Nurul Ilmi', status:'LULUS'},
+    {no:174,nama:'SERLI PERTIWI',                 nisn:'0039161439', tgl:'2003-09-22', kelompok:'Nurul Ilmi', status:'LULUS'}
+  ];
+
+  function renderKelulusan(data) {
+    var tbody = document.getElementById('tbl-kelulusan');
+    var empty = document.getElementById('kelulusan-empty');
+    if (!data.length) {
+      tbody.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    tbody.innerHTML = data.map(function(d, i) {
+      var isLulus = d.status === 'LULUS';
+      var badgeStyle = isLulus
+        ? 'background:#dcfce7; color:#15803d; border:1px solid #86efac;'
+        : 'background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;';
+      var rowBg = i % 2 === 0 ? '' : 'background:#f9fafb;';
+      return '<tr style="border-bottom:1px solid #e5e7eb;' + rowBg + '">' +
+        '<td style="padding:7px 10px; text-align:center; color:#6b7280; font-size:12px;">' + d.no + '</td>' +
+        '<td style="padding:7px 10px; font-weight:500;">' + d.nama + '</td>' +
+        '<td style="padding:7px 10px; text-align:center; font-family:monospace; font-size:12px; color:#6b7280;">' + (d.nisn === '-' ? '—' : d.nisn) + '</td>' +
+        '<td style="padding:7px 10px; text-align:center; font-size:12px;">' + d.tgl + '</td>' +
+        '<td style="padding:7px 10px; text-align:center;">' +
+          '<span style="background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:600;">' + d.kelompok + '</span>' +
+        '</td>' +
+        '<td style="padding:7px 10px; text-align:center;">' +
+          '<span style="' + badgeStyle + ' border-radius:4px; padding:3px 10px; font-size:12px; font-weight:700;">' +
+            (isLulus ? '✓ LULUS' : '✗ TIDAK LULUS') +
+          '</span>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  function cariKelulusan() {
+    var q       = (document.getElementById('cari-nama').value || '').toLowerCase().trim();
+    var grp     = document.getElementById('filter-kelompok').value;
+    var sts     = document.getElementById('filter-status').value;
+    var hasil   = dataKelulusan.filter(function(d) {
+      var cocokNama     = !q   || d.nama.toLowerCase().indexOf(q) !== -1;
+      var cocokKelompok = !grp || d.kelompok === grp;
+      var cocokStatus   = !sts || d.status === sts;
+      return cocokNama && cocokKelompok && cocokStatus;
+    });
+    renderKelulusan(hasil);
+  }
+
+  // Render saat pertama kali tab dibuka
+  (function(){ renderKelulusan(dataKelulusan); })();
+  
   function eksporCSV() {
     if (!pesertaList.length) { alert('Belum ada data untuk diekspor.'); return; }
     var header = ['No. Reg.','Nama','JK','NIK','Program','Kecamatan','No. HP','Orang Tua/Wali','Pendidikan Terakhir','Tgl. Daftar','Status'];
